@@ -13,4 +13,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   )
 }
 
+/*
+
+   
+    <div className="mobile-hide">
+    </div>
+    
+    <div className="mobile">
+        <div className="desktop-hide">
+        </div>
+    </div>
+
+*/
+
 export default MyApp
