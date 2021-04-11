@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Image, Button, Heading, Text, Center, Grid, GridItem, Box, Divider } from "@chakra-ui/react";
+import { Image, Button, Heading, Text, Center, GridItem, SimpleGrid } from "@chakra-ui/react";
 import styles from "../styles/Home.module.scss"
 
 
@@ -25,48 +25,43 @@ export default function Home() {
             </Link>
           </div>
         </div>
+
         <div className={styles.container}>
           <Center>
             <Heading as='h1' color="black" fontFamily="arial" marginTop="50px"> Libear </Heading>
           </Center>
-          <Grid
-            h="auto"
-            templateRows="repeat(1, 1fr)"
-            templateColumns="repeat(5, 1fr)"
-            gap={12}
-          >
-            <GridItem colSpan={2} w="100%" h="auto"><Image src="images/planeta-terra.webp" alt="foto do planeta Terra" /></GridItem>
-            <GridItem colSpan={3} w="100%" h="auto">
+          <SimpleGrid columns={2} spacing={10} spacingY="100px">
+            <GridItem w="100%" h="auto">
+              <Image src="images/planeta-terra.webp" alt="foto do planeta Terra" />
+            </GridItem>
+            <GridItem w="100%" h="auto">
               <Center h="100px"><p>Ensino de qualidade</p></Center>
-              <Text letterSpacing="2px">
+              <Text letterSpacing="2px" textAlign="center">
                 O jeito mais inovador de aprender idiomas! Aprender com o Libear é divertido e viciante.
                 Ganhe pontos ao acertar, corra contra o tempo e passe de nível. As nossas aulas são rápidas
                 e eficazes.
               </Text>
             </GridItem>
-            <GridItem colSpan={2} w="100%" h="auto"><Image src="images/moeda.webp" alt="foto do planeta Terra" /></GridItem>
-            <GridItem colSpan={3} w="100%" h="auto">
+            <GridItem w="100%" h="auto">
+              <Image src="images/moeda.webp" alt="foto do planeta Terra" />
+            </GridItem>
+            <GridItem w="100%" h="auto">
               <Center h="100px"><p>Libear premium</p></Center>
-              <Text letterSpacing="2px">
+              <Text letterSpacing="2px" textAlign="center">
                 Melhore o seu aprendizado com o Libear premium
-                Aprender um idioma no Libear é totalmente gratuito, mas você pode remover 
+                Aprender um idioma no Libear é totalmente gratuito, mas você pode remover
                 os anúncios e apoiar a educação gratuita com o premium.
               </Text>
             </GridItem>
-            <Divider />
-          </Grid>
-
-
+          </SimpleGrid>
         </div>
+       
       </div>
 
       <div className="mobile">
         <div className="desktop-hide">
         </div>
       </div>
-
-
-
     </>
   )
 }
