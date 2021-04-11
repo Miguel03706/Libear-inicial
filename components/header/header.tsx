@@ -48,7 +48,7 @@ export default function Header() {
                             <nav>
                              <h2>Libear</h2>
                             </nav>
-                            <Image size="64px" src="icons/logo.webp"/>
+                            <Image size="64px" src="icons/logo_urso.webp"/>
                         </div>
                     </header>
                 </div>

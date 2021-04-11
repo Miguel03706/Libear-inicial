@@ -1,7 +1,8 @@
+import React from "react"
+import Footer from "../components/footer"
 import { AppProps } from "next/app"
 import { ChakraProvider, CSSReset, theme, ColorModeScript } from "@chakra-ui/react"
 import '../styles/globals.css'
-import React from "react"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -9,7 +10,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ColorModeScript initialColorMode="light"/>
         <CSSReset />
         <Component {...pageProps} />
+        <Footer/>
     </ChakraProvider>
+    
   )
 }
 
