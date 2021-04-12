@@ -6,7 +6,7 @@ function Config() {
 
     return (
         <>
-            <Header />
+            <Header inicio={false} missoes={false} loja={false} config={true}/>
             <Button onClick={toggleColorMode}>
             Toggle {colorMode === "light" ? "Dark" : "Light"}
             </Button>

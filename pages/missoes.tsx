@@ -3,7 +3,7 @@ import Header from "../components/header"
 function Missions() {
     return (
         <>
-            <Header />
+            <Header inicio={false} missoes={true} loja={false} config={false}/>
             <h1>Missões</h1>
         </>
     )

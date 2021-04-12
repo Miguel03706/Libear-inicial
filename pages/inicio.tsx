@@ -6,7 +6,7 @@ function Begin() {
 
     return (
         <>
-          <Header />
+          <Header inicio={true} missoes={false} loja={false} config={false}/>
                 <h1>Inicio</h1>
 
         </>
