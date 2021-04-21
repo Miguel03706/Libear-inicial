@@ -36,9 +36,9 @@ export default function Header({inicio, missoes, loja, config}) {
                                                 {color ? 
                                                 <Image size="64px" src={img} className={styles.imgSelect}/> : <Image size="64px" src={img} />}
                                                 {color ? <a className={styles.imgSelect}>{label}</a> : <a>{label}</a>}
-                                                
                                             </Button>
                                         </Link>
+                                        
                                     </li>
                                 ))}
                             </ul>
