@@ -1,5 +1,5 @@
-import { Button, Image, SimpleGrid, GridItem, Text, Box, Container, IconButton } from "@chakra-ui/react"
-import { FaFacebook } from 'react-icons/fa'
+import { Button, Image, SimpleGrid, GridItem, Text, Box, Container, IconButton, Link } from "@chakra-ui/react"
+import { FaInstagram } from 'react-icons/fa'
 import FooterMobile from "./footerMobile"
 import styles from "./footer.module.scss"
 
@@ -19,13 +19,15 @@ function Footer() {
                         <GridItem w="100%" h="100px">
                             <Container centerContent h="100px" >
                                 <Box h="100%" marginTop="25px">
+                                    <Link  href="https://www.instagram.com/libear_librasparatodos/?igshid=17n81zkb3gy4u" isExternal>
                                     <IconButton
                                         isRound={true}
-                                        colorScheme="facebook"
+                                        colorScheme="cyan"
                                         aria-label="Call Segun"
                                         size="lg"
-                                        icon={<FaFacebook />}
+                                        icon={<FaInstagram />}
                                     />
+                                    </Link>
                                 </Box>
                             </Container>
                         </GridItem>

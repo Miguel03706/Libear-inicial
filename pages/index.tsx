@@ -28,7 +28,7 @@ export default function Home() {
 
         <div className={styles.container}>
           <Center>
-            <Heading as='h1' color="black" fontFamily="arial" marginTop="50px"> Libear </Heading>
+            <Heading as='h1' fontFamily="arial" marginTop="50px"> Libear </Heading>
           </Center>
           <SimpleGrid columns={2} spacing={10} spacingY="100px">
             <GridItem w="100%" h="auto">
