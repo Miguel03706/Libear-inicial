@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Header from "../components/header"
 import Atividades from "../components/atividades"
-import { Button, Flex, Spacer, Center, Text, Wrap,WrapItem } from "@chakra-ui/react"
+import { Button, Flex, Spacer, Center, Text,SimpleGrid,Box,Skeleton} from "@chakra-ui/react"
 import axios from "axios";
 
 function Begin() {
@@ -28,15 +28,14 @@ function Begin() {
 
 
             <div className="mobile-hide">
-                <Flex>
-                   
-                    <Center w="60%" m="2">
-                        <Atividades />
-                    </Center>
-                    <Center w="35%" m="2" bg="green.500">
-                        <Text>Box 1</Text>
-                    </Center>
-                </Flex>
+                <SimpleGrid columns={2} spacing={10} m="10">
+                    <Box  height="auto" width="100%"><Atividades /></Box>
+                    <Box  height="auto" width="80%">
+                    <Skeleton height="400px" />
+                    </Box>
+                </SimpleGrid>
+                
+
 
             </div>
 

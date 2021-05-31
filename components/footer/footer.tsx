@@ -11,7 +11,7 @@ function Footer() {
                 <div className={styles.footer}>
                     <SimpleGrid columns={3} spacing={10}>
                         <GridItem w="100%" h="100px">
-                            <Image src="icons/logo_urso.webp" alt="desenho de um urso polar sorrindo" />
+                            <Image src="../icons/logo_urso.webp" alt="desenho de um urso polar sorrindo" />
                         </GridItem>
                         <GridItem w={{ base: "150%", md: "100%", lg: "100%" }} h="100px" >
                             <Text fontSize={{ base: "7px", md: "16px", lg: "18px" }} color="white" lineHeight="100px" textAlign="center">Contato@libear.com.br</Text>

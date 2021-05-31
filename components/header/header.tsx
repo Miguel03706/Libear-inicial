@@ -35,7 +35,7 @@ export default function Header({inicio, missoes, loja, config}) {
                                             <Button colorScheme="teal" variant="link">
                                                 {color ? 
                                                 <Image size="64px" src={img} className={styles.imgSelect}/> : <Image size="64px" src={img} />}
-                                                {color ? <a className={styles.imgSelect}>{label}</a> : <a>{label}</a>}
+                                                {color ? <a className={styles.imgSelect}><div className="label_header">{label}</div></a> : <a><div className="label_header">{label}</div></a>}
                                             </Button>
                                         </Link>
                                         
