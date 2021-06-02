@@ -1,16 +1,13 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 import Header from "../components/header"
 import Atividades from "../components/atividades"
 import { Button, Flex, Spacer, Center, Text,SimpleGrid,Box,Skeleton} from "@chakra-ui/react"
 import axios from "axios";
 
 function Begin() {
-    const [data, setData] = useState(null);
     const [loader, setLoader] = useState(true);
 
     const [lista, setLista] = useState([]);
-
-
 
     async function listarDados() {
         const res = await axios.get('http://localhost/api/listar.php');
@@ -34,9 +31,6 @@ function Begin() {
                     <Skeleton height="400px" />
                     </Box>
                 </SimpleGrid>
-                
-
-
             </div>
 
             <div className="mobile">

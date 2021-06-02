@@ -2,7 +2,7 @@ import React from "react"
 import  {Center} from "@chakra-ui/react";
 import Login from "../components/login";
 
-function Logar(){
+function Entrar(){
 
 
     return(
@@ -16,4 +16,4 @@ function Logar(){
     )
 }
 
-export default Logar;
+export default Entrar;

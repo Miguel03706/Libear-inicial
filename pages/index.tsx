@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link"
 import { Image, Button, Heading, Text, Center, GridItem, SimpleGrid } from "@chakra-ui/react";
 import styles from "../styles/Home.module.scss"

@@ -1,18 +1,22 @@
 import React from "react"
 import Footer from "../components/footer"
 import { AppProps } from "next/app"
-import { ChakraProvider, CSSReset, theme, ColorModeScript } from "@chakra-ui/react"
+import { ChakraProvider, CSSReset, ColorModeScript } from "@chakra-ui/react"
+import AuthProvider from "../components/state/Auth/Provider";
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
+    <AuthProvider>
     <ChakraProvider>
       <ColorModeScript initialColorMode="light"/>
         <CSSReset />
+      
         <Component {...pageProps} />
+       
         <Footer/>
     </ChakraProvider>
-    
+    </AuthProvider>
   )
 }
 
