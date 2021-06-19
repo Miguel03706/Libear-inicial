@@ -22,8 +22,7 @@ function Begin() {
     return (
         <>
             <Header inicio={true} missoes={false} loja={false} config={false} />
-
-
+            
             <div className="mobile-hide">
                 <SimpleGrid columns={2} spacing={10} m="10">
                     <Box  height="auto" width="100%"><Atividades /></Box>

@@ -1,24 +1,19 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import authReducer from "../state/Auth/reducer";
 import AuthContext from "../state/Auth/Context";
 import * as authActions from "../state/Auth/actions";
-import styles from "./login.module.scss";
+import axios from "axios";
+import { navigate } from 'hookrouter';
 import {
-    Image, Center, Button, Input, Popover,
-    PopoverTrigger,
-    PopoverContent,
-    PopoverHeader,
-    PopoverBody,
-    PopoverFooter,
-    PopoverArrow,
-    PopoverCloseButton,
+    Image, Center, Button, Input,
 } from "@chakra-ui/react";
+import styles from "./login.module.scss";
 
-function Login() {
-
+function Cadastrar() {
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    const [result, setResult] = useState([]);
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -39,25 +34,40 @@ function Login() {
     useEffect(() => {
         console.log(isLoggedIn);
         localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
+        isLoggedIn ? cadastrarDados() : null
     }, [isLoggedIn]);
+
+    useEffect(() => {
+        result.success ? window.location.href = "http://localhost:3000/entrar" : null 
+        localStorage.setItem("redirect", JSON.stringify(true));
+    }, [result]);
 
     const handleLogin = useCallback((evt) => {
         evt.preventDefault();
-        console.log(formik.values);
         setIsLoggedIn(authActions.login);
-    }, [isLoggedIn, setIsLoggedIn, formik]);
+    }, [setIsLoggedIn]);
 
-    //const handleLogout = useCallback(() => {
-    //    setIsLoggedIn(authActions.logout);
-    //}, [setIsLoggedIn, setIsLoggedIn]);
- //const LogoutButton = <Button onClick={handleLogout} colorScheme="teal">Sair</Button>
+    function errorEmail() {
+        setIsLoggedIn(authActions.logout);
+    }
 
-    const LoginButton = <Button onClick={handleLogin} colorScheme="teal">Logar</Button>
+    async function cadastrarDados() {
+        const res = await axios.get(`http://localhost/api/cadastrar.php?email=${formik.values.email}&password=${formik.values.password}`);
+        setResult(res.data);
+        console.log(res.data);
+    }
+    function redirect() {
+        isLoggedIn ? window.location.href = "http://www.devmedia.com.br/guia/html/38051" : null;
+    }
 
+    //{isLoggedIn ? window.location.href = "http://www.devmedia.com.br/guia/html/38051"}
+    //<Center><small>Cadastro realizado com sucesso {redirect()}</small></Center>
+    const LoginButton = <Button onClick={handleLogin} colorScheme="teal">Cadastrar</Button>
     return (
         <div className={styles.container}>
             <Center><Image src={`icons/logo_urso_sorrindo_logo.webp`} h="200px" /></Center>
-            <Center><h2> Entrar </h2></Center>
+            <Center><h2> Cadastrar </h2></Center>
+            {result.encontrei ? <Center><small>Email já está em uso {errorEmail()}</small></Center> : null}
             {formik.touched.email && formik.errors.email ? (
                 <Center>{formik.errors.email}</Center>
             ) : null}
@@ -66,19 +76,18 @@ function Login() {
                     {...formik.getFieldProps('email')}
                     placeholder="Digite seu email"
                     className={styles.email} /></p></Center>
-                     {formik.touched.password && formik.errors.password ? (
-                <Center>{formik.errors.password}</Center>
-            ) : null}
+                {formik.touched.password && formik.errors.password ? (
+                    <Center>{formik.errors.password}</Center>
+                ) : null}
                 <Center> <p><Input variant="flushed" type="password"
                     {...formik.getFieldProps('password')}
                     placeholder="Digite sua senha"
-                    className={styles.password} 
-                    autoComplete="off"/></p></Center>
-
+                    className={styles.password}
+                    autoComplete="off" /></p></Center>
                 <Center> {LoginButton}</Center>
             </form>
         </div>
     )
 }
 
-export default Login;
+export default Cadastrar;
