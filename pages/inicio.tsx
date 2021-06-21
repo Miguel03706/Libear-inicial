@@ -16,6 +16,7 @@ function Begin() {
     }
 
     useEffect(() => {
+        window.localStorage.removeItem("redirect");  
         listarDados();
     }, []);
 

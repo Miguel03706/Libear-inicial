@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link"
 import { Image, Button, Heading, Text, Center, GridItem, SimpleGrid } from "@chakra-ui/react";
 import styles from "../styles/Home.module.scss"
 
-
 export default function Home() {
+  useEffect(() => {
+    let login = JSON.parse(localStorage.getItem("isLoggedIn"));
+    login ? window.location.href = "http://localhost:3000/inicio": null
+  },[])
   return (
     <>
       <div className="mobile-hide">
@@ -15,11 +18,10 @@ export default function Home() {
               <Text fontSize={{ base: "12px", md: "18px", lg: "25px" }} color='black' letterSpacing="2px">Aprenda libras da melhor maneira!</Text>
             </span>
 
-            <Link href="/inicio">
+            <Link href="/cadastrar">
               <Button colorScheme="blue" className={styles.btn_start}>Começar</Button>
             </Link>
-            <Link href="/inicio">
-
+            <Link href="/entrar">
               <Button colorScheme="blue" variant="solid" className={styles.btn_login}>
                 Já tenho uma conta
             </Button>

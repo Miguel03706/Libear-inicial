@@ -19,4 +19,12 @@
             text-align: center;
         }
     }
+    .Link{
+        a{
+            color: teal;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+    }
 }
