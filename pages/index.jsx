@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Link from "next/link"
 import { Image, Button, Heading, Text, Center, GridItem, SimpleGrid } from "@chakra-ui/react";
+import AuthContext from "../components/state/Auth/Context";
 import styles from "../styles/Home.module.scss"
 
 export default function Home() {
+
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   useEffect(() => {
-    let login = JSON.parse(localStorage.getItem("isLoggedIn"));
-    login ? window.location.href = "http://localhost:3000/inicio": null
-  },[])
+    isLoggedIn ? window.location.href = "http://localhost:3000/inicio" : null
+    console.log(isLoggedIn);
+  }, [])
+
   return (
     <>
       <div className="mobile-hide">
@@ -24,7 +28,7 @@ export default function Home() {
             <Link href="/entrar">
               <Button colorScheme="blue" variant="solid" className={styles.btn_login}>
                 Já tenho uma conta
-            </Button>
+              </Button>
             </Link>
           </div>
         </div>
@@ -58,7 +62,7 @@ export default function Home() {
             </GridItem>
           </SimpleGrid>
         </div>
-       
+
       </div>
 
       <div className="mobile">

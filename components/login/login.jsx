@@ -27,13 +27,14 @@ function Login() {
                 .required('Você precisa digitar sua senha.')
                 .min(8, "a senha deve ter no minimo 8 caracteres")
         }),
-        validadeOnChange: false, //valida a acada caractere adicionado
+        validateOnChange: false, //valida a acada caractere adicionado
         validateOnBlur: false, // valida ao sair do form(ou clicar fora do input)
     });
     useEffect(() => {
         let redirect = JSON.parse(localStorage.getItem("redirect"));
         redirect ? toast({ description: "Cadastrado com sucesso" }) : null
-        window.localStorage.removeItem("id_user");  
+        window.localStorage.removeItem("id_user");
+        console.log(isLoggedIn)  
         setIsLoggedIn(authActions.logout)
     },[])
  useEffect(() => {
@@ -48,8 +49,8 @@ function Login() {
 
     const handleLogin = useCallback((evt) => {
         evt.preventDefault();
-        setIsLoggedIn(authActions.login);
-    }, [setIsLoggedIn]);
+        isLoggedIn ? null : setIsLoggedIn(authActions.login);
+    }, [setIsLoggedIn,isLoggedIn]);
 
     async function verificarDados() {
         const res = await axios.get(`http://localhost/api/entrar.php?email=${formik.values.email}&password=${formik.values.password}`);

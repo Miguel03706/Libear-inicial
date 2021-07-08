@@ -51,6 +51,7 @@ function Atividades() {
                                         <PopoverContent boxShadow="none !important">
                                             <PopoverArrow />
                                             <div className={styles.licao} key={atividade.id_atividade}>
+                                                <div className={styles.titulo}><Center>{atividade.titulo}</Center></div>
                                                 {atividade.progresso == 0 ? "lição 0/4" : ""}
                                                 {atividade.progresso == 25 ? "lição 1/4" : ""}
                                                 {atividade.progresso == 50 ? "lição 2/4" : ""}
@@ -59,7 +60,7 @@ function Atividades() {
                                             </div>
                                             <PopoverCloseButton />
                                             <PopoverBody className={styles.popBody}>
-                                                <p><Button colorScheme="blue" w="100%">Explicação</Button></p><br />
+                                                <div className={styles.button}><Button colorScheme="blue" w="100%">Explicação</Button></div><br />
                                                 <Link href="licao/[licao]" as={`licao/${atividade.id_atividade}`}>
                                                     <Button colorScheme="blue" w="100%">Atividade</Button>
                                                 </Link>
