@@ -1,26 +1,57 @@
-import React, { useState } from 'react';
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Progress, Button } from "@chakra-ui/react";
+import React, { useState, useEffect, useCallback } from 'react';
+import { GetServerSideProps } from 'next';
+import axios from 'axios';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Progress, Button, Center, Image, Text } from "@chakra-ui/react";
+import Licao1 from "../../components/Licoes/licao1";
+import Licao2 from "../../components/Licoes/licao2";
+export async function getServerSideProps(ctx) {
+    const slug = ctx.params.licao;
+    return {
+        props: {
+            slug
+        }
+    }
+}
+
+function licao({ slug }) {
+
+    const [licao, setLicao] = useState([]);
+    const [licaoOp, setLicaoOp] = useState([]);
+
+    async function listarLicao() {
+        const res = await axios.get(`http://localhost/api/admin/atividades.php?id=${slug}`);
+        setLicao(res.data.result);
+    }
+    useEffect(() => {
+        listarLicao();
+        var teste = [0, 1, 2, 3];
+        shuffleArray(teste);
+        setLicaoOp(teste)
+    }, []);
 
 
-function licao() {
 
     const [tabIndex, setTabIndex] = React.useState(0)
 
     const handleSliderChange = (event) => {
         setTabIndex(parseInt(event.target.value, 10))
     }
-
     const handleTabsChange = (index) => {
         setTabIndex(index)
     }
     const handleNext = () => {
         setTabIndex(tabIndex + 1)
     }
+  
+    function shuffleArray(inputArray) {
+        inputArray.sort(() => Math.random() - 0.5);
+    }
+
 
     return (
         <Box>
             <Box p='10'>
-                <Progress colorScheme="green" height="32px" value={tabIndex * 10} max={90}  borderRadius="10px"/>
+                <Progress colorScheme="green" height="32px" value={tabIndex * 10} max={90} borderRadius="10px" />
             </Box>
             <Tabs index={tabIndex} onChange={handleTabsChange}>
                 <TabList>
@@ -37,10 +68,10 @@ function licao() {
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <p>Click the tabs or pull the slider around</p>
+                        <Licao1 slug={slug} handleNext={handleNext}/>
                     </TabPanel>
                     <TabPanel>
-                        <p>Yeah yeah. What's up?</p>
+                    <Licao2 slug={slug} handleNext={handleNext}/>
                     </TabPanel>
                     <TabPanel>
                         <p>Oh, hello there.</p>
@@ -50,11 +81,6 @@ function licao() {
                     </TabPanel>
                 </TabPanels>
             </Tabs>
-            <Box align='right' marginRight="10" p='5'>
-                <Button colorScheme="teal" size="lg" onClick={handleNext}>
-                    Proximo
-                </Button>
-            </Box>
         </Box>
     )
 }
