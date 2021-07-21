@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TabPanel, Center, Image, Text, Button, Box } from "@chakra-ui/react";
+import styles from "./licao2.module.scss";
 
 function Licao2({ slug, handleNext }) {
     const [licao, setLicao] = useState([]);
@@ -25,17 +26,17 @@ function Licao2({ slug, handleNext }) {
             <>
                 {licao.map(atividade => (
                     <div key={atividade.id_atividade}>
-                        <div>
+                        <div className={styles.Img}>
                             <Center>
                                 <Image src={`../../images/atividades/${atividade.licao.atividade2.imagem}`} h="300px" w="60%" />
                             </Center>
                         </div>
-                        <div>
+                        <div className={styles.Txt}>
                             <Center>
                                 <Text>{atividade.licao.atividade2.texto}</Text>
                             </Center>
                         </div>
-                        <div>
+                        <div className={styles.Op}>
                             {atividade.licao.atividade2.res_escrita == 0 ?
                                 <>
                                     <Center>
@@ -48,7 +49,7 @@ function Licao2({ slug, handleNext }) {
                                 : null
                             }
                         </div>
-                        <Box align='right' marginRight="10" p='5'>
+                        <Box align='right' marginRight="10" p='5' className={styles.Button}>
                         <Button colorScheme="teal" size="lg" onClick={handleNext}>
                             Proximo
                         </Button>

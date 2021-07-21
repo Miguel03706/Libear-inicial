@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Progress, Button, Center, Image, Text } from "@chakra-ui/react";
 import Licao1 from "../../components/Licoes/licao1";
 import Licao2 from "../../components/Licoes/licao2";
+import Licao3 from "../../components/Licoes/licao3";
 export async function getServerSideProps(ctx) {
     const slug = ctx.params.licao;
     return {
@@ -29,27 +30,22 @@ function licao({ slug }) {
         setLicaoOp(teste)
     }, []);
 
-
-
     const [tabIndex, setTabIndex] = React.useState(0)
 
-    const handleSliderChange = (event) => {
-        setTabIndex(parseInt(event.target.value, 10))
-    }
     const handleTabsChange = (index) => {
         setTabIndex(index)
     }
-    const handleNext = () => {
-        setTabIndex(tabIndex + 1)
+    const handleNext = (value) => {
+        setTabIndex(tabIndex + 1);
     }
-  
+
     function shuffleArray(inputArray) {
         inputArray.sort(() => Math.random() - 0.5);
     }
 
 
     return (
-        <Box>
+        <>
             <Box p='10'>
                 <Progress colorScheme="green" height="32px" value={tabIndex * 10} max={90} borderRadius="10px" />
             </Box>
@@ -68,20 +64,20 @@ function licao({ slug }) {
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <Licao1 slug={slug} handleNext={handleNext}/>
+                        <Licao1 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                    <Licao2 slug={slug} handleNext={handleNext}/>
+                        <Licao2 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                        <p>Oh, hello there.</p>
+                        <Licao3 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
                         <p>Oh, hello there.</p>
                     </TabPanel>
                 </TabPanels>
             </Tabs>
-        </Box>
+        </>
     )
 }
 

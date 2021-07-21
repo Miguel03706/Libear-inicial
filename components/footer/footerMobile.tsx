@@ -14,7 +14,7 @@ function FooterMobile() {
                             <Center>
                                 <Link href="/loja">
                                     <Button colorScheme="teal" variant="link">
-                                        <Image src="mobile/video.webp" alt="icone com simbolo de play" />
+                                        <Image src="../mobile/video.webp" alt="icone com simbolo de play" />
                                     </Button>
                                 </Link>
                             </Center>
@@ -24,7 +24,7 @@ function FooterMobile() {
                                 <Link href="/missoes">
 
                                     <Button colorScheme="teal" variant="link">
-                                        <Image src="mobile/trofeu.webp" alt="icone de trofeu" />
+                                        <Image src="../mobile/trofeu.webp" alt="icone de trofeu" />
                                     </Button>
                                 </Link>
                             </Center>
@@ -35,7 +35,7 @@ function FooterMobile() {
                                 <Link href="/inicio">
 
                                     <Button colorScheme="teal" variant="link">
-                                        <Image src="mobile/casa-branca.webp" alt="icone de uma casa" />
+                                        <Image src="../mobile/casa-branca.webp" alt="icone de uma casa" />
                                     </Button>
                                 </Link>
                             </Center>
@@ -45,7 +45,7 @@ function FooterMobile() {
                                 <Link href="/perfil">
 
                                     <Button colorScheme="teal" variant="link">
-                                        <Image src="mobile/user.webp" alt="icone de um usuario" />
+                                        <Image src="../mobile/user.webp" alt="icone de um usuario" />
                                     </Button>
                                 </Link>
                             </Center>
@@ -55,7 +55,7 @@ function FooterMobile() {
                                 <Link href="/configurar">
 
                                     <Button colorScheme="teal" variant="link">
-                                        <Image src="mobile/config.webp" alt="icone de uma engrenagem" />
+                                        <Image src="../mobile/config.webp" alt="icone de uma engrenagem" />
                                     </Button>
                                 </Link>
                             </Center>
