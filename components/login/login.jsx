@@ -6,8 +6,9 @@ import AuthContext from "../state/Auth/Context";
 import * as authActions from "../state/Auth/actions";
 import axios from "axios";
 import styles from "./login.module.scss";
+import Api from "../../pages/api/Api";
 import {
-    Image, Center, Button, Input,useToast 
+    Image, Center, Button, Input, useToast
 } from "@chakra-ui/react";
 
 function Login() {
@@ -34,10 +35,9 @@ function Login() {
         let redirect = JSON.parse(localStorage.getItem("redirect"));
         redirect ? toast({ description: "Cadastrado com sucesso" }) : null
         window.localStorage.removeItem("id_user");
-        console.log(isLoggedIn)  
         setIsLoggedIn(authActions.logout)
-    },[])
- useEffect(() => {
+    }, [])
+    useEffect(() => {
         isLoggedIn ? verificarDados() : null
     }, [isLoggedIn]);
 
@@ -50,7 +50,7 @@ function Login() {
     const handleLogin = useCallback((evt) => {
         evt.preventDefault();
         isLoggedIn ? null : setIsLoggedIn(authActions.login);
-    }, [setIsLoggedIn,isLoggedIn]);
+    }, [setIsLoggedIn, isLoggedIn]);
 
     async function verificarDados() {
         const res = await axios.get(`http://localhost/api/entrar.php?email=${formik.values.email}&password=${formik.values.password}`);
@@ -60,13 +60,23 @@ function Login() {
         setIsLoggedIn(authActions.logout);
     }
 
+    const handleGoogle = async () => {
+        let result = Api.googleLogar();
+
+        if(result){
+
+        }else{
+            alert('error')
+        }
+    }
+
     const LoginButton = <Button onClick={handleLogin} colorScheme="teal">Logar</Button>
 
     return (
         <div className={styles.container}>
             <Center><Image src={`icons/logo_urso_sorrindo.webp`} h="200px" /></Center>
             <Center><h2> Entrar </h2></Center>
-            {result.success ?  result.encontrei ? null : <Center><small>Email ou senha inválidos {errorEmail()}</small></Center>: null}
+            {result.success ? result.encontrei ? null : <Center><small>Email ou senha inválidos {errorEmail()}</small></Center> : null}
             {formik.touched.email && formik.errors.email ? (
                 <Center>{formik.errors.email}</Center>
             ) : null}
@@ -86,6 +96,14 @@ function Login() {
 
                 <Center> {LoginButton}</Center>
             </form>
+            <div>
+                <Button colorScheme="facebook" onClick={handleGoogle}>
+                    Google
+                </Button>
+                <Button colorScheme="facebook">
+                    Facebook
+                </Button>
+            </div>
             <div className={styles.Link}>
                 Não possui uma conta? <Link href="/cadastrar"><a>Cadastrar</a></Link>
             </div>

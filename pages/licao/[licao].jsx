@@ -5,6 +5,15 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Progress, Button, Center,
 import Licao1 from "../../components/Licoes/licao1";
 import Licao2 from "../../components/Licoes/licao2";
 import Licao3 from "../../components/Licoes/licao3";
+import Licao4 from "../../components/Licoes/licao4";
+import Licao5 from "../../components/Licoes/licao5";
+import Licao6 from "../../components/Licoes/licao6";
+import Licao7 from "../../components/Licoes/licao7";
+import Licao8 from "../../components/Licoes/licao8";
+import Licao9 from "../../components/Licoes/licao9";
+import Licao10 from "../../components/Licoes/licao10";
+
+
 export async function getServerSideProps(ctx) {
     const slug = ctx.params.licao;
     return {
@@ -17,7 +26,6 @@ export async function getServerSideProps(ctx) {
 function licao({ slug }) {
 
     const [licao, setLicao] = useState([]);
-    const [licaoOp, setLicaoOp] = useState([]);
 
     async function listarLicao() {
         const res = await axios.get(`http://localhost/api/admin/atividades.php?id=${slug}`);
@@ -25,9 +33,6 @@ function licao({ slug }) {
     }
     useEffect(() => {
         listarLicao();
-        var teste = [0, 1, 2, 3];
-        shuffleArray(teste);
-        setLicaoOp(teste)
     }, []);
 
     const [tabIndex, setTabIndex] = React.useState(0)
@@ -35,14 +40,9 @@ function licao({ slug }) {
     const handleTabsChange = (index) => {
         setTabIndex(index)
     }
-    const handleNext = (value) => {
+    const handleNext = () => {
         setTabIndex(tabIndex + 1);
     }
-
-    function shuffleArray(inputArray) {
-        inputArray.sort(() => Math.random() - 0.5);
-    }
-
 
     return (
         <>
@@ -73,7 +73,10 @@ function licao({ slug }) {
                         <Licao3 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                        <p>Oh, hello there.</p>
+                    <Licao4 slug={slug} handleNext={handleNext} />
+                    </TabPanel>
+                    <TabPanel>
+                    <Licao5 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

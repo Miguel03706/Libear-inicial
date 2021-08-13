@@ -1,11 +1,12 @@
 import React from "react";
+import UserPerfil from "../components/UserPerfil"
 import Header from "../components/header"
 
 function Perfil() {
     return (
         <>
             <Header />
-            <h1>Perfil</h1>
+            <UserPerfil/>
         </>
     )
 }
