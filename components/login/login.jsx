@@ -15,6 +15,8 @@ function Login() {
     const toast = useToast()
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
     const [result, setResult] = useState([]);
+    const [user, setUser] = useState(null);
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -46,6 +48,9 @@ function Login() {
         result.encontrei ? localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn)) : null;
         result.encontrei ? window.location.href = "http://localhost:3000/inicio" : null;
     }, [result]);
+     useEffect(() => {
+         console.log(user)
+     }, [user]);
 
     const handleLogin = useCallback((evt) => {
         evt.preventDefault();
@@ -60,15 +65,44 @@ function Login() {
         setIsLoggedIn(authActions.logout);
     }
 
-    const handleGoogle = async () => {
-        let result = Api.googleLogar();
+     const actionLoginGoogle = async (u) => {
+         let newUser = {
+             id: u.uid,
+             name: u.displayName,
+             avatar: u.photoURL
+         }
+         setUser(newUser);
+        // console.log(u)
+     }
 
-        if(result){
+     const handleGoogle = async () => {
+         let result = await Api.googleLogar();
 
-        }else{
+         if (result) {
+             actionLoginGoogle(result.user)
+             
+         } else {
+             alert('error')
+         }
+     }
+     const actionLoginFacebook = async (u) => {
+         let newUser = {
+               id: u.uid,
+               name: u.displayName,
+               avatar: u.photoURL
+           }
+         setUser(newUser);
+    }
+
+    const handleFacebook = async () => {
+        let result = await Api.facebookLogar();
+        if (result) {
+            actionLoginFacebook(result.user)
+        } else {
             alert('error')
         }
     }
+
 
     const LoginButton = <Button onClick={handleLogin} colorScheme="teal">Logar</Button>
 
@@ -96,11 +130,11 @@ function Login() {
 
                 <Center> {LoginButton}</Center>
             </form>
-            <div>
+             <div>
                 <Button colorScheme="facebook" onClick={handleGoogle}>
                     Google
                 </Button>
-                <Button colorScheme="facebook">
+                <Button colorScheme="facebook" onClick={handleFacebook}>
                     Facebook
                 </Button>
             </div>

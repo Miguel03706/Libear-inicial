@@ -3,10 +3,10 @@ import AuthContext from "./Context";
 import authReducer from "./reducer";
 
 function Provider({ children }){
-    const [isLoggedIn, setIsLoggedIn] = useReducer(authReducer, false)
+    const [isLoggedIn, setIsLoggedIn] = useReducer(authReducer, [])
 
     return(
-    <AuthContext.Provider value={{ isLoggedIn: isLoggedIn, setIsLoggedIn }}>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
     {children}
     </AuthContext.Provider>
     )

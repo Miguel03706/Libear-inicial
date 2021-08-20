@@ -7,11 +7,9 @@ import axios from "axios";
 
 function Begin() {
     const [loader, setLoader] = useState(true);
-   // const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
     
     useEffect(() => {
         window.localStorage.removeItem("redirect");
-       // console.log(isLoggedIn);
     }, []);
 
     return (

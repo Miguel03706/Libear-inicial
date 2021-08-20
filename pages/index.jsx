@@ -6,12 +6,6 @@ import styles from "../styles/Home.module.scss"
 
 export default function Home() {
 
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  useEffect(() => {
-    isLoggedIn ? window.location.href = "http://localhost:3000/inicio" : null
-    console.log(isLoggedIn);
-  }, [])
-
   return (
     <>
       <div className="mobile-hide">

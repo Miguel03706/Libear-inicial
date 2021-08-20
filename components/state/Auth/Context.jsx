@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import authReducer from "./reducer";
 
-const Context = createContext({});
+const Context = createContext(null);
 
 export default Context;
