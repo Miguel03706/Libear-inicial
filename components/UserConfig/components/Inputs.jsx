@@ -1,13 +1,15 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from "axios";
+import AuthContext from "../../state/Auth/Context"
 import {
     Image, Center, Button, Input, useToast, Skeleton, Box, Grid, GridItem, VisuallyHidden, Text, InputGroup, InputRightElement
 } from "@chakra-ui/react";
 import styles from "../UserConfig.module.scss";
 
 function Inputs() {
+    const usuario = useContext(AuthContext)
 
     const formik = useFormik({
         initialValues: {
@@ -42,7 +44,6 @@ function Inputs() {
                             textAlign="center"
                             marginLeft="2rem"
                         />
-
                         <InputRightElement >
                             <Image src={`icons/uteis/caneta.webp`} h="1rem" />
                         </InputRightElement>

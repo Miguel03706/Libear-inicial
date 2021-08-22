@@ -31,7 +31,7 @@ function UserMobile({handleCopy}){
                                     </GridItem>
                                 </Grid>
                             </Box>
-                            <VisuallyHidden><textarea className="text">http://localhost:3000</textarea></VisuallyHidden>
+                            <VisuallyHidden><textarea className="text" value="http://localhost:3000" readOnly></textarea></VisuallyHidden>
                         </Center>
         </>
     );

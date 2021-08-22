@@ -2,18 +2,18 @@ import React, { useContext, useEffect, useCallback, useState } from "react";
 import Link from "next/link"
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import AuthContext from "../state/Auth/Context";
-import * as authActions from "../state/Auth/actions";
 import axios from "axios";
 import {
     Image, Center, Button, Input,
 } from "@chakra-ui/react";
+import AuthContext from "../state/Auth/Context"
+import API from '../../pages/api/Api'
 import styles from "./cadastrar.module.scss";
 
-function Cadastrar() {
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-    const [result, setResult] = useState([]);
 
+function Cadastrar() {
+    const [result, setResult] = useState([]);
+    const user = useContext(AuthContext)
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -31,34 +31,19 @@ function Cadastrar() {
         validateOnBlur: false, // valida ao sair do form(ou clicar fora do input)
     });
     useEffect(() => {
-        localStorage.setItem("redirect", JSON.stringify(false));
-        window.localStorage.removeItem("id_user");
-    },[])
-    useEffect(() => {
-        localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
-        isLoggedIn ? cadastrarDados() : null
-    }, [isLoggedIn]);
-
-    useEffect(() => {
-        result.success ? window.location.href = "http://localhost:3000/entrar" : null 
-        result.success ? localStorage.setItem("redirect", JSON.stringify(true)) : null 
-    }, [result]);
-
-    const handleLogin = useCallback((evt) => {
-        evt.preventDefault();
-        setIsLoggedIn(authActions.login);
-    }, [setIsLoggedIn]);
-
-    function errorEmail() {
-        setIsLoggedIn(authActions.logout);
-    }
-
+       API.logOut()
+       },[])
+   useEffect(() => {
+    localStorage.setItem("redirect", true)
+    let redirect = JSON.stringify(localStorage.getItem("isCreate"));
+    redirect != 'null' ? window.location.href = "/entrar" : null
+   },[user])
     async function cadastrarDados() {
-        const res = await axios.get(`http://localhost/api/cadastrar.php?email=${formik.values.email}&password=${formik.values.password}`);
-        setResult(res.data);
+        let {email, password} = formik.values
+        API.criarContaFB(email, password)
     }
    
-    const LoginButton = <Button onClick={handleLogin} colorScheme="teal">Cadastrar</Button>
+    const LoginButton = <Button onClick={cadastrarDados} colorScheme="teal">Cadastrar</Button>
     return (
         <div className={styles.container}>
             <Center><Image src={`icons/logo_urso.webp`} h="200px" /></Center>

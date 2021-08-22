@@ -6,6 +6,7 @@ import axios from "axios";
 import styles from "./UserPerfil.module.scss";
 import UserPc from "./components/UserPc";
 import UserMobile from "./components/UserMobile";
+import AuthContext from "../state/Auth/Context"
 import {
     Image, Center, Button, Input, useToast, Skeleton, Box, Grid, GridItem, VisuallyHidden
 } from "@chakra-ui/react";
@@ -13,6 +14,7 @@ import {
 function Login() {
     const toast = useToast()
     const [user, setUser] = useState([]);
+    const usuario = useContext(AuthContext)
     useEffect(() => {
         verificarDados()
     }, []);
@@ -28,42 +30,45 @@ function Login() {
             duration: 3000,
         })
     }, []);
+    const handleLogout = async () => {
+        API.logOut()
+    }
 
     async function verificarDados() {
-        let id = JSON.parse(localStorage.getItem("id_user"));
-        const res = await axios.get(`http://localhost/api/listar.php?id=${id}`);
+        let id = usuario.uid;
+        const res = await axios.get(`http://localhost/api/listar.php?id=3`);
         setUser(res.data.result);
     }
 
     return (
         <div className={styles.container}>
-            {user.map(usuario => {
-                return (
-                    <>
-                        <Center><Image src={`user/user_img/${usuario.img}.webp`} h="100px" /></Center>
-                        <Center>
-                            <p>
-                                <Input variant="flushed" type="text"
-                                    placeholder="Digite sua senha"
-                                    className={styles.password}
-                                    isDisabled
-                                    value={usuario.user}
-                                    textAlign="center"
-                                />
-                            </p>
-                        </Center>
-                        <div className="mobile-hide">
-                       <UserPc handleCopy={handleCopy}/>
-                        </div>
-
-                        <div className="mobile">
-                            <div className="desktop-hide">
-                            <UserMobile handleCopy={handleCopy}/>
-                            </div>
-                        </div>
-                    </>
-                )
-            })}
+            <>
+                <Center><Image src={`user/user_img/${usuario.photoURL}.webp`} h="100px" /></Center>
+                <Center>
+                    <p>
+                        <Input
+                            variant="flushed"
+                            type="text"
+                            placeholder="Digite sua senha"
+                            className={styles.password}
+                            isDisabled
+                            value={usuario.email}
+                            textAlign="center"
+                        />
+                    </p>
+                </Center>
+                <div className="mobile-hide">
+                    <UserPc handleCopy={handleCopy} />
+                </div>
+                <div className="mobile">
+                    <div className="desktop-hide">
+                        <UserMobile handleCopy={handleCopy} />
+                    </div>
+                    <Button colorScheme="facebook" onClick={handleLogout}>
+                        Deslogar
+                    </Button>
+                </div>
+            </>
         </div>
     )
 }

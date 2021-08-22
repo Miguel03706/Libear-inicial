@@ -7,9 +7,12 @@ import axios from "axios";
 
 function Begin() {
     const [loader, setLoader] = useState(true);
+    const usuario = useContext(AuthContext)
     
     useEffect(() => {
         window.localStorage.removeItem("redirect");
+        window.localStorage.removeItem("isLogged");
+        //console.log(usuario.uid)
     }, []);
 
     return (

@@ -1,41 +1,25 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import Footer from "../components/footer"
-// import Login from "../components/login"
-import { AppProps } from "next/app"
 import { ChakraProvider, CSSReset, ColorModeScript } from "@chakra-ui/react"
-import AuthProvider from "../components/state/Auth/Provider";
+import AuthProvider from "../components/state/Auth/Provider"
 import '../styles/globals.css'
 
+
 function MyApp({ Component, pageProps }) {
-
-  
-  // useEffect(() => {
-  //   const URL = window.location.href;
-  //   if (URL === "http://localhost:3000/" || URL === "http://localhost:3000/entrar" || URL === "http://localhost:3000/cadastrar") {
-  //       return null;
-  //   }else if(user === null){
-  //     return(
-  //       <Entrar />
-  //     )
-  //   }
-  // })
- 
-    // if(user === null){
-    //   return (
-    //     <Login onReciveGoogle={actionLoginGoogle}/>
-    //   )
-    // }
- 
-
+//   const usuario = useContext(AuthContext)
+// useEffect(() => {
+//   console.log(usuario)
+// },[usuario])
 
   return (
     <AuthProvider>
+      
       <ChakraProvider>
         <ColorModeScript initialColorMode="light" />
+      
         <CSSReset />
-
         <Component {...pageProps} />
-
+  
         <Footer />
       </ChakraProvider>
     </AuthProvider>

@@ -1,5 +1,3 @@
-
-import React, { useEffect } from "react"
 import firebase from "firebase/app";
 import "firebase/firebase-auth";
 import "firebase/firebase-firestore";
@@ -7,14 +5,35 @@ import firebaseConfig from "./firebaseConfig";
 
 if (!firebase.apps.length) {
   const firebaseApp = firebase.initializeApp(firebaseConfig);
-  const db = firebaseApp.firestore();
-}else {
-  firebase.app(); // if already initialized, use that one
+  var db = firebaseApp.firestore();
+} else {
+  const firebaseApp = firebase.app(); // if already initialized, use that one
+  var db = firebaseApp.firestore();
 }
-
+//const db = firebaseApp.firestore();
 
 
 export default {
+  _firebase: () => { return firebase },
+  firebaseUsuario: async () => {
+    return firebase.auth().currentUser;
+  },
+  criarContaFB: async (email, senha) => {
+    let sucesso = await firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
+      localStorage.setItem("isCreate", true)
+      const user = firebase.auth().currentUser;
+
+      user.updateProfile({
+        displayName: "User",
+        photoURL: "abelha"
+      })
+    })
+  },
+  logarContaFB: async (email, senha) => {
+    let sucesso = await firebase.auth().signInWithEmailAndPassword(email, senha).then(() => {
+      localStorage.setItem("isLogged", true)
+    })
+  },
   googleLogar: async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     let result = await firebase.auth().signInWithPopup(provider);
@@ -26,11 +45,23 @@ export default {
     return result;
   },
   logOut: async () => {
-    firebase.auth().signOut().then(() => {
-      // Sign-out successful.
-    }).catch((error) => {
-      // An error happened.
-    });
+    firebase.auth().signOut()
+  },
+  userImg: () => {
+    var docRef = db.collection("userImg");
+
+    return docRef.get().then((querySnapshot) => {
+      let img = []
+      querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          img.push(doc.data())
+          //console.log(doc.id, " => ", doc.data());
+      });
+      return img;
+  })
+  .catch((error) => {
+      console.log("Error getting documents: ", error);
+  });
   }
 }
 
