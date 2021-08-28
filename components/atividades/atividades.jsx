@@ -32,7 +32,7 @@ function Atividades() {
             setColor('#E5DE2F');
         }
     }, [setColor]);
-
+ 
     return (
         <>
             {atividades.map(atividade => (

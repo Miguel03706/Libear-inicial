@@ -36,11 +36,11 @@ function Login() {
         let redirect = JSON.parse(localStorage.getItem("redirect"));
         redirect ? toast({ description: "Cadastrado com sucesso" }) : null
         window.localStorage.removeItem("isCreate");
+        // usuario !== null ? window.location.href = "/inicio" : null
     }, [])
 
     useEffect(() => {
-        //let isLogged = JSON.stringify(localStorage.getItem("isLogged"));
-        //isLogged !== 'null' ? window.location.href = "/inicio" : null
+       // usuario !== null ? window.location.href = "/inicio" : null
         console.log(usuario);
     }, [usuario])
 
@@ -50,33 +50,9 @@ function Login() {
         API.logarContaFB(email, password)
     };
 
-    const actionLoginGoogle = async (u) => {
-        let newUser = {
-            id: u.uid,
-            name: u.displayName,
-            avatar: u.photoURL
-        }
-        setUser(newUser);
-        // console.log(u)
-    }
 
     const handleGoogle = async () => {
         let result = await API.googleLogar();
-
-        if (result) {
-            actionLoginGoogle(result.user)
-
-        } else {
-            alert('error')
-        }
-    }
-    const actionLoginFacebook = async (u) => {
-        let newUser = {
-            id: u.uid,
-            name: u.displayName,
-            avatar: u.photoURL
-        }
-        setUser(newUser);
     }
 
     const handleFacebook = async () => {
@@ -119,7 +95,7 @@ function Login() {
 
                 <Center> {LoginButton}</Center>
             </form>
-            <div>
+            {/* <div>
                 <Button colorScheme="facebook" onClick={handleGoogle}>
                     Google
                 </Button>
@@ -129,7 +105,7 @@ function Login() {
                  <Button colorScheme="facebook" onClick={handleLogout}>
                     Deslogar
                 </Button>
-            </div>
+            </div> */}
             <div className={styles.Link}>
                 Não possui uma conta? <Link href="/cadastrar"><a>Cadastrar</a></Link>
             </div>

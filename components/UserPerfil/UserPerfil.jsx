@@ -30,9 +30,6 @@ function Login() {
             duration: 3000,
         })
     }, []);
-    const handleLogout = async () => {
-        API.logOut()
-    }
 
     async function verificarDados() {
         let id = usuario.uid;
@@ -64,9 +61,6 @@ function Login() {
                     <div className="desktop-hide">
                         <UserMobile handleCopy={handleCopy} />
                     </div>
-                    <Button colorScheme="facebook" onClick={handleLogout}>
-                        Deslogar
-                    </Button>
                 </div>
             </>
         </div>

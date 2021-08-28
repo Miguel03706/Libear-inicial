@@ -30,13 +30,11 @@ function Cadastrar() {
         validadeOnChange: false, //valida a acada caractere adicionado
         validateOnBlur: false, // valida ao sair do form(ou clicar fora do input)
     });
-    useEffect(() => {
-       API.logOut()
-       },[])
+
    useEffect(() => {
     localStorage.setItem("redirect", true)
     let redirect = JSON.stringify(localStorage.getItem("isCreate"));
-    redirect != 'null' ? window.location.href = "/entrar" : null
+    // redirect != 'null' ? window.location.href = "/entrar" : null
    },[user])
     async function cadastrarDados() {
         let {email, password} = formik.values

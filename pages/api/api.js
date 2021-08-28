@@ -12,6 +12,21 @@ if (!firebase.apps.length) {
 }
 //const db = firebaseApp.firestore();
 
+const user = firebase.auth().currentUser;
+
+const handleError = (error) => {
+  if (error.code) {
+    switch (error.code) {
+      case 'auth/weak-password':
+        alert('Senha muito fraca: Sua senha deve conter no minimo 6 caracteres');
+        break;
+      case 'auth/requires-recent-login':
+        alert('Para alterar o email é necessário relogar');
+        break;
+    }
+  }
+  console.log("entrei")
+}
 
 export default {
   _firebase: () => { return firebase },
@@ -20,23 +35,23 @@ export default {
   },
   criarContaFB: async (email, senha) => {
     let sucesso = await firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
-      localStorage.setItem("isCreate", true)
-      const user = firebase.auth().currentUser;
-
       user.updateProfile({
         displayName: "User",
         photoURL: "abelha"
       })
+    }).then(() => {
+      location.href = "http://localhost:3000/entrar"
     })
   },
   logarContaFB: async (email, senha) => {
     let sucesso = await firebase.auth().signInWithEmailAndPassword(email, senha).then(() => {
-      localStorage.setItem("isLogged", true)
+      location.href = "http://localhost:3000/inicio";
     })
   },
   googleLogar: async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    let result = await firebase.auth().signInWithPopup(provider);
+    let result = await firebase.auth().signInWithPopup(provider)
+
     return result;
   },
   facebookLogar: async () => {
@@ -44,8 +59,10 @@ export default {
     let result = await firebase.auth().signInWithPopup(provider);
     return result;
   },
-  logOut: async () => {
-    firebase.auth().signOut()
+  logOut: () => {
+    firebase.auth().signOut().then(() => {
+      location.href = "http://localhost:3000/entrar"
+    })
   },
   userImg: () => {
     var docRef = db.collection("userImg");
@@ -53,16 +70,64 @@ export default {
     return docRef.get().then((querySnapshot) => {
       let img = []
       querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          img.push(doc.data())
-          //console.log(doc.id, " => ", doc.data());
+        img.push(doc.data())
       });
       return img;
-  })
-  .catch((error) => {
-      console.log("Error getting documents: ", error);
-  });
-  }
+    })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  },
+  userUpdate: (email, userName) => {
+    // const credential = firebase.auth.EmailAuthProvider.credential(
+    //   user.email,
+    //   user.providerData.providerId
+    // );
+
+    const user = firebase.auth().currentUser;
+
+    user.updateProfile({
+      displayName: userName,
+      }).then(() => {
+        alert('Nome de usuário alterado com sucesso')
+      }).catch((error) => {
+        console.log(error);
+      });
+      user.updateEmail(email).then(() => {
+        //   user.reauthenticateWithCredential(credential).then(() => {
+        //     console.log("Email alterada com sucesso");
+        //   }).catch((error) => {
+        //     console.log("erro: " + error);
+        //   })
+        // );
+        alert('Email alterado com sucesso')
+      }).catch((error) => {
+        handleError(error);
+      })
+    },
+      userUpdatePassword: (password) => {
+        const credential = firebase.auth.EmailAuthProvider.credential(
+          user.email,
+          password
+        );
+
+        user.updatePassword(password).then(() => {
+          user.reauthenticateWithCredential(credential).then(() => {
+            console.log("senha alterada com sucesso");
+          })
+        }
+        ).catch((error) => {
+          handleError(error);
+        });
+      },
+      userUpdateImage: (img) => {
+        const user = firebase.auth().currentUser;
+        user.updateProfile({
+          photoURL: img
+        }).then(() => {
+          alert('Imagem alterada com sucesso')
+        })
+      },
 }
 
 /*

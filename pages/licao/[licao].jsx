@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Progress, Button, Center, Image, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import Licao1 from "../../components/Licoes/licao1";
 import Licao2 from "../../components/Licoes/licao2";
 import Licao3 from "../../components/Licoes/licao3";
@@ -43,10 +44,14 @@ function licao({ slug }) {
     const handleNext = () => {
         setTabIndex(tabIndex + 1);
     }
-
     return (
         <>
+
             <Box p='10'>
+
+                <Link href="/inicio" as={`/inicio`}>
+                    <Button marginBottom="2vh"><h2>Voltar</h2></Button>
+                </Link>
                 <Progress colorScheme="green" height="32px" value={tabIndex * 10} max={90} borderRadius="10px" />
             </Box>
             <Tabs index={tabIndex} onChange={handleTabsChange}>
@@ -73,10 +78,10 @@ function licao({ slug }) {
                         <Licao3 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                    <Licao4 slug={slug} handleNext={handleNext} />
+                        <Licao4 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                    <Licao5 slug={slug} handleNext={handleNext} />
+                        <Licao5 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

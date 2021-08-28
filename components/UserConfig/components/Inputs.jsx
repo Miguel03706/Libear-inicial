@@ -3,19 +3,31 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from "axios";
 import AuthContext from "../../state/Auth/Context"
+import API from "../../../pages/api/Api";
 import {
-    Image, Center, Button, Input, useToast, Skeleton, Box, Grid, GridItem, VisuallyHidden, Text, InputGroup, InputRightElement
+    Image, Center, Button, Input, useToast, Skeleton, Box, Grid,
+    GridItem, VisuallyHidden, Text, InputGroup, InputRightElement, InputRightAddon, BoxModal,
+    ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Modal,
+    useDisclosure, useColorMode
 } from "@chakra-ui/react";
 import styles from "../UserConfig.module.scss";
 
 function Inputs() {
-    const usuario = useContext(AuthContext)
+    const usuario = useContext(AuthContext);
+    const [userName, setUserName] = useState(usuario.displayName);
+    const [userEmail, setEmail] = useState(usuario.email);
+    const [userPassword, setPassword] = useState("");
+    const [show, setShow] = useState(false)
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { colorMode, toggleColorMode } = useColorMode()
+
+    const handleShow = () => setShow(!show)
 
     const formik = useFormik({
         initialValues: {
+            userName: '',
             email: '',
             password: '',
-            userName: '',
         },
         validationSchema: yup.object({
             email: yup.string()
@@ -30,27 +42,123 @@ function Inputs() {
         validateOnBlur: false, // valida ao sair do form(ou clicar fora do input)
     });
 
+    const handleUserName = useCallback((evt) => {
+        evt.preventDefault();
+        setUserName(evt.target.value)
+    })
+    const handleEmail = useCallback((evt) => {
+        evt.preventDefault();
+        setEmail(evt.target.value)
+    })
+    const handlePassword = useCallback((evt) => {
+        evt.preventDefault();
+        setPassword(evt.target.value)
+    })
+    const handleLogout = async () => {
+        API.logOut()
+    }
+
+    useEffect(()=>{
+        console.log(usuario.displayName)
+    },[])
+
+    const handleUpdate = (evt) => {
+        evt.preventDefault();
+        API.userUpdate(userEmail, userName);
+    }
+    const handleUpdatePassword = (evt) => {
+        evt.preventDefault();
+        API.userUpdatePassword(userPassword);
+    }
 
     return (
         <>
-            <Center>
+            <Center marginTop="5vh" marginBottom="5vh">
                 <p>
+                    <h2>Nome de usuario: </h2>
+                    <Input
+                        w="20vw"
+                        type="text"
+                        {...formik.getFieldProps("userName")}
+                        className={styles.password}
+                        value={userName}
+                        onChange={handleUserName}
+                        autoComplete="off"
+
+                    />
+                </p>
+            </Center>
+            <Center marginTop="5vh" marginBottom="5vh">
+                <p>
+                    <h2>Email: </h2>
+                    <Input
+                        w="20vw"
+                        type="text"
+                        {...formik.getFieldProps("email")}
+                        className={styles.password}
+                        value={userEmail}
+                        onChange={handleEmail}
+                    />
+                </p>
+            </Center>
+            <Center marginTop="5vh" marginBottom="1vh">
+                <p>
+                    <h2>Senha: </h2>
                     <InputGroup>
                         <Input
-                            variant="flushed"
-                            type="text"
-                            {...formik.getFieldProps("userName")}
+                            w="20vw"
+                            {...formik.getFieldProps("password")}
+                            type={show ? "text" : "password"}
                             className={styles.password}
-                            textAlign="center"
-                            marginLeft="2rem"
+                            placeholder="Alterar senha"
+                            value={userPassword}
+                            onChange={handlePassword}
                         />
-                        <InputRightElement >
-                            <Image src={`icons/uteis/caneta.webp`} h="1rem" />
+                        <InputRightElement width="auto" marginRight="5px">
+                            <Button h="1.75rem" onClick={handleShow}>
+                                {show ? "Esconder" : "Mostrar"}
+                            </Button>
                         </InputRightElement>
                     </InputGroup>
                 </p>
             </Center>
+            <Center marginTop="0" marginBottom="3vh">
+                <Button colorScheme="blue" variant="solid" w="20vw" onClick={onOpen}>
+                    Alterar senha
+                </Button>
+            </Center>
+            <Center marginTop="2vh" marginBottom="2vh"> 
+                    <Button onClick={toggleColorMode} bg={colorMode === "light" ? "#000000" : "whiteAlpha"} w="10vw"  _hover={colorMode === "light" ? { bg: "#212529" } : { bg: "#495057" }}>
+                        <Text color="white">Modo {colorMode === "light" ? "Noturno" : "Claro"}</Text>
+                    </Button>
+            </Center>
+            <Center marginTop="2vh" marginBottom="2vh">
+                <Button colorScheme="teal" variant="solid" w="10vw" onClick={handleUpdate}>
+                    Atualizar
+                </Button>
+            </Center>
+            <Center marginTop="2vh" marginBottom="5vh">
+                <Button colorScheme="red" variant="solid" onClick={handleLogout} w="10vw">
+                    Deslogar
+                </Button>
+            </Center>
 
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Alterar senha</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        Voce tem certeza que deseja alterar sua senha?
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button colorScheme="blue" mr={3} onClick={handleUpdatePassword}>
+                            Alterar senha
+                        </Button>
+                        <Button variant="ghost" onClick={onClose}>Fechar</Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </>
     )
 }
