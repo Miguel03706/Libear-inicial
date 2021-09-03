@@ -24,7 +24,7 @@ function UserMobile({handleCopy}){
                                     </GridItem>
                                     <GridItem colSpan={3}>
                                         <Center textAlign="center"><p><h2>Convide Amigos!</h2></p></Center>
-                                        <Center textAlign="center"> Chame seus amigos e ajude a ligua brasileira de sinais</Center>
+                                        <Center textAlign="center"> Chame seus amigos e ajude a lingua brasileira de sinais</Center>
                                     </GridItem>
                                     <GridItem colSpan={3}>
                                         <Center><Button colorScheme="blue" className={styles.btn_start} marginTop="5%" w="80%" onClick={handleCopy}>Compartilhar</Button></Center>

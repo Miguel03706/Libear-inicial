@@ -58,10 +58,6 @@ function Inputs() {
         API.logOut()
     }
 
-    useEffect(()=>{
-        console.log(usuario.displayName)
-    },[])
-
     const handleUpdate = (evt) => {
         evt.preventDefault();
         API.userUpdate(userEmail, userName);

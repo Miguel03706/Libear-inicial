@@ -23,6 +23,9 @@ const handleError = (error) => {
       case 'auth/requires-recent-login':
         alert('Para alterar o email é necessário relogar');
         break;
+      case 'auth/wrong-password':
+        alert('Senha incorreta');
+        break
     }
   }
   console.log("entrei")
@@ -46,6 +49,8 @@ export default {
   logarContaFB: async (email, senha) => {
     let sucesso = await firebase.auth().signInWithEmailAndPassword(email, senha).then(() => {
       location.href = "http://localhost:3000/inicio";
+    }).catch((error) => {
+      handleError(error);
     })
   },
   googleLogar: async () => {
@@ -88,46 +93,46 @@ export default {
 
     user.updateProfile({
       displayName: userName,
-      }).then(() => {
-        alert('Nome de usuário alterado com sucesso')
-      }).catch((error) => {
-        console.log(error);
-      });
-      user.updateEmail(email).then(() => {
-        //   user.reauthenticateWithCredential(credential).then(() => {
-        //     console.log("Email alterada com sucesso");
-        //   }).catch((error) => {
-        //     console.log("erro: " + error);
-        //   })
-        // );
-        alert('Email alterado com sucesso')
-      }).catch((error) => {
-        handleError(error);
-      })
-    },
-      userUpdatePassword: (password) => {
-        const credential = firebase.auth.EmailAuthProvider.credential(
-          user.email,
-          password
-        );
+    }).then(() => {
+      alert('Nome de usuário alterado com sucesso')
+    }).catch((error) => {
+      console.log(error);
+    });
+    user.updateEmail(email).then(() => {
+      //   user.reauthenticateWithCredential(credential).then(() => {
+      //     console.log("Email alterada com sucesso");
+      //   }).catch((error) => {
+      //     console.log("erro: " + error);
+      //   })
+      // );
+      alert('Email alterado com sucesso')
+    }).catch((error) => {
+      handleError(error);
+    })
+  },
+  userUpdatePassword: (password) => {
+    const credential = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      password
+    );
 
-        user.updatePassword(password).then(() => {
-          user.reauthenticateWithCredential(credential).then(() => {
-            console.log("senha alterada com sucesso");
-          })
-        }
-        ).catch((error) => {
-          handleError(error);
-        });
-      },
-      userUpdateImage: (img) => {
-        const user = firebase.auth().currentUser;
-        user.updateProfile({
-          photoURL: img
-        }).then(() => {
-          alert('Imagem alterada com sucesso')
-        })
-      },
+    user.updatePassword(password).then(() => {
+      user.reauthenticateWithCredential(credential).then(() => {
+        console.log("senha alterada com sucesso");
+      })
+    }
+    ).catch((error) => {
+      handleError(error);
+    });
+  },
+  userUpdateImage: (img) => {
+    const user = firebase.auth().currentUser;
+    user.updateProfile({
+      photoURL: img
+    }).then(() => {
+      alert('Imagem alterada com sucesso')
+    })
+  },
 }
 
 /*
