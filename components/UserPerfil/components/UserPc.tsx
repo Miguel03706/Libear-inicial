@@ -8,9 +8,6 @@ import styles from "../UserPerfil.module.scss";
 function UserPc({handleCopy}){
     return(
         <>
-         <Center p="10px">
-                            <Skeleton height="30vh" width="40vw" />
-                        </Center>
                         <Center p="10px">
                             <Box bg="#CCCCCC" w="40vw" h="100%" p={4} color="black" border="solid black 1px" borderRadius="10px">
                                 <Grid

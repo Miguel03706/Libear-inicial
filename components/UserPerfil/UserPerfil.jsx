@@ -1,7 +1,4 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
-import Link from "next/link"
-import { useFormik } from 'formik';
-import * as yup from 'yup';
 import axios from "axios";
 import styles from "./UserPerfil.module.scss";
 import UserPc from "./components/UserPc";
@@ -10,13 +7,13 @@ import AuthContext from "../state/Auth/Context"
 import {
     Image, Center, Button, Input, useToast, Skeleton, Box, Grid, GridItem, VisuallyHidden
 } from "@chakra-ui/react";
+import UserRanking from "../UserRanking";
 
-function Login() {
+function UserPerfil() {
     const toast = useToast()
-    const [user, setUser] = useState([]);
     const usuario = useContext(AuthContext)
+    
     useEffect(() => {
-        verificarDados()
     }, []);
 
     const handleCopy = useCallback((evt) => {
@@ -31,11 +28,6 @@ function Login() {
         })
     }, []);
 
-    async function verificarDados() {
-        let id = usuario.uid;
-        const res = await axios.get(`http://localhost/api/listar.php?id=3`);
-        setUser(res.data.result);
-    }
 
     return (
         <div className={styles.container}>
@@ -54,6 +46,10 @@ function Login() {
                         />
                     </p>
                 </Center>
+                <Center p="10px">
+                    <UserRanking />
+                </Center>
+
                 <div className="mobile-hide">
                     <UserPc handleCopy={handleCopy} />
                 </div>
@@ -67,4 +63,4 @@ function Login() {
     )
 }
 
-export default Login;
+export default UserPerfil;

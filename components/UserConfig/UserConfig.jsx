@@ -55,7 +55,7 @@ function UserConfig() {
                                             <RadioGroup onChange={setValue} value={value}>
                                                 <Stack direction="row">
                                                     <Radio value={img.name}>
-                                                    <Image src={`user/user_img/${img.name}.webp`} h="100px"
+                                                    <Image src={`user/user_img/${img.name}.webp`} h="100%"
                                                     boxSize="100px"
                                                     objectFit="cover"
                                                     alt={`${img.name}`}
@@ -72,7 +72,9 @@ function UserConfig() {
                             <Button colorScheme="blue" mr={3} onClick={handleImg}>
                                 Atualizar
                             </Button>
-                            <Button variant="ghost" onClick={onClose}>Fechar</Button>
+                            <Button variant="ghost" onClick={onClose}>
+                                Fechar
+                                </Button>
                         </ModalFooter>
                     </ModalContent>
                 </Modal>

@@ -9,18 +9,18 @@ function UserMobile({handleCopy}){
     return(
         <>
          <Center p="10px">
-                            <Skeleton height="30vh" width="80vw" />
+                            
                         </Center>
                         <Center p="10px">
-                            <Box bg="#CCCCCC" w="80vw" h="100%" p={4} color="black" border="solid black 1px" borderRadius="10px">
+                            <Box bg="#CCCCCC" w="80vw" h="250px" p={4} color="black" border="solid black 1px" borderRadius="10px">
                                 <Grid
-                                    h="80%"
+                                    h="auto"
                                     templateRows="repeat(2, 1fr)"
                                     templateColumns="repeat(5, 1fr)"
                                     gap={4}
                                 >
                                     <GridItem rowSpan={2} colSpan={2}>
-                                        <Center><Image src='icons/amigos.webp' h="100%" marginTop="50%" /></Center>
+                                        <Center><Image src='icons/amigos.webp' h="auto" marginTop="70%" /></Center>
                                     </GridItem>
                                     <GridItem colSpan={3}>
                                         <Center textAlign="center"><p><h2>Convide Amigos!</h2></p></Center>

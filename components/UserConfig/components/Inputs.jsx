@@ -73,7 +73,7 @@ function Inputs() {
                 <p>
                     <h2>Nome de usuario: </h2>
                     <Input
-                        w="20vw"
+                        w="100%"
                         type="text"
                         {...formik.getFieldProps("userName")}
                         className={styles.password}
@@ -88,7 +88,7 @@ function Inputs() {
                 <p>
                     <h2>Email: </h2>
                     <Input
-                        w="20vw"
+                        w="100%"
                         type="text"
                         {...formik.getFieldProps("email")}
                         className={styles.password}
@@ -102,7 +102,7 @@ function Inputs() {
                     <h2>Senha: </h2>
                     <InputGroup>
                         <Input
-                            w="20vw"
+                            w="100%"
                             {...formik.getFieldProps("password")}
                             type={show ? "text" : "password"}
                             className={styles.password}
@@ -119,22 +119,22 @@ function Inputs() {
                 </p>
             </Center>
             <Center marginTop="0" marginBottom="3vh">
-                <Button colorScheme="blue" variant="solid" w="20vw" onClick={onOpen}>
+                <Button colorScheme="blue" variant="solid" w="250px" onClick={onOpen}>
                     Alterar senha
                 </Button>
             </Center>
             <Center marginTop="2vh" marginBottom="2vh"> 
-                    <Button onClick={toggleColorMode} bg={colorMode === "light" ? "#000000" : "whiteAlpha"} w="10vw"  _hover={colorMode === "light" ? { bg: "#212529" } : { bg: "#495057" }}>
+                    <Button onClick={toggleColorMode} bg={colorMode === "light" ? "#000000" : "whiteAlpha"} w="200px"  _hover={colorMode === "light" ? { bg: "#212529" } : { bg: "#495057" }}>
                         <Text color="white">Modo {colorMode === "light" ? "Noturno" : "Claro"}</Text>
                     </Button>
             </Center>
             <Center marginTop="2vh" marginBottom="2vh">
-                <Button colorScheme="teal" variant="solid" w="10vw" onClick={handleUpdate}>
+                <Button colorScheme="teal" variant="solid" w="200px" onClick={handleUpdate}>
                     Atualizar
                 </Button>
             </Center>
             <Center marginTop="2vh" marginBottom="5vh">
-                <Button colorScheme="red" variant="solid" onClick={handleLogout} w="10vw">
+                <Button colorScheme="red" variant="solid" onClick={handleLogout} w="200px">
                     Deslogar
                 </Button>
             </Center>

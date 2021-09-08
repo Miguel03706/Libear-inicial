@@ -2,6 +2,8 @@ import firebase from "firebase/app";
 import "firebase/firebase-auth";
 import "firebase/firebase-firestore";
 import firebaseConfig from "./firebaseConfig";
+import axios from "axios";
+
 
 if (!firebase.apps.length) {
   const firebaseApp = firebase.initializeApp(firebaseConfig);
@@ -26,9 +28,12 @@ const handleError = (error) => {
       case 'auth/wrong-password':
         alert('Senha incorreta');
         break
+      case 'auth/email-already-in-use':
+        alert('Email já está em uso, coloque outro e tente novamente');
+        break
+
     }
   }
-  console.log("entrei")
 }
 
 export default {
@@ -38,12 +43,17 @@ export default {
   },
   criarContaFB: async (email, senha) => {
     let sucesso = await firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
+      const user = firebase.auth().currentUser;
+      axios.get(`http://localhost/api/cadastrar.php?id=${user.uid}`);
+
       user.updateProfile({
         displayName: "User",
         photoURL: "abelha"
       })
     }).then(() => {
       location.href = "http://localhost:3000/entrar"
+    }).catch((error)=>{
+      handleError(error);
     })
   },
   logarContaFB: async (email, senha) => {
@@ -84,27 +94,17 @@ export default {
       });
   },
   userUpdate: (email, userName) => {
-    // const credential = firebase.auth.EmailAuthProvider.credential(
-    //   user.email,
-    //   user.providerData.providerId
-    // );
-
     const user = firebase.auth().currentUser;
 
     user.updateProfile({
       displayName: userName,
     }).then(() => {
       alert('Nome de usuário alterado com sucesso')
+      axios.get(`http://localhost/api/userUpdate.php?id=${user.uid}&user=${userName}`)
     }).catch((error) => {
       console.log(error);
     });
     user.updateEmail(email).then(() => {
-      //   user.reauthenticateWithCredential(credential).then(() => {
-      //     console.log("Email alterada com sucesso");
-      //   }).catch((error) => {
-      //     console.log("erro: " + error);
-      //   })
-      // );
       alert('Email alterado com sucesso')
     }).catch((error) => {
       handleError(error);
@@ -137,6 +137,14 @@ export default {
 
 /*
 ///////////////////////////////////////////////////
+
+db.collection("cities").doc("LA").set({
+    name: "Los Angeles",
+    state: "CA",
+    country: "USA"
+})
+////////////////////////////////////////////////////
+
 firebase.auth().createUserWithEmailAndPassword(email, password)
   .then((userCredential) => {
     // Signed in
