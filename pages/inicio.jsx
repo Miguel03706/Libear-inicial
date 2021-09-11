@@ -6,32 +6,29 @@ import { Button, Flex, Spacer, Center, Text, SimpleGrid, Box, Skeleton } from "@
 import axios from "axios";
 
 function Begin() {
-    const [loader, setLoader] = useState(true);
     const usuario = useContext(AuthContext)
     
     useEffect(() => {
         window.localStorage.removeItem("redirect");
-        window.localStorage.removeItem("isLogged");
         //console.log(usuario.uid)
     }, []);
 
     return (
         <>
             <Header inicio={true} missoes={false} loja={false} config={false} />
-
-            <div className="mobile-hide">
+            {/* <div className="mobile-hide"> */}
                 <SimpleGrid columns={2} spacing={10} m="10">
                     <Box height="auto" width="100%"><Atividades /></Box>
                     <Box height="auto" width="80%">
                         <Skeleton height="400px" />
                     </Box>
                 </SimpleGrid>
-            </div>
-
+            {/* </div> */}
+{/* 
             <div className="mobile">
                 <div className="desktop-hide">
                 </div>
-            </div>
+            </div> */}
 
 
         </>

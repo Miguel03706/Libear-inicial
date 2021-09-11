@@ -32,6 +32,7 @@ function Licao1({ slug, handleNext }) {
         inputArray.sort(() => Math.random() - 0.5);
     }
 
+
     useEffect(() => {
         listarLicao();
         var teste = [0, 1, 2, 3];
@@ -116,7 +117,7 @@ function Licao1({ slug, handleNext }) {
                             }
                         </div>
                         <Box align='right' marginRight="10" p='5' className={styles.Button}>
-                            <Button colorScheme="teal" size="lg" onClick={handleVerifica}>
+                            <Button colorScheme="teal" size="lg" onClick={handleVerifica} onKeyDown={(e) => something(e) }>
                                 Proximo
                             </Button>
                         </Box>

@@ -20,8 +20,6 @@ function criarAtividade() {
     const [option9, setOption9] = useState(true);
     const [option10, setOption10] = useState(true);
 
-    
-
 
     async function registrarDados() {
         const res = await axios.get('http://localhost/api/admin/atividades.php');

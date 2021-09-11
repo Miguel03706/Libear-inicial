@@ -6,13 +6,6 @@ import axios from "axios"
 
 function adminPainel() {
 
-    useEffect(() => {
-       async function registrarDados(){
-        const res = axios.get("");
-       }
-    },[])
-
-
     return (
         <>
             <Tabs variant="soft-rounded" colorScheme="green" direction='ltr'>

@@ -14,12 +14,12 @@ export interface HeaderProps{
 export default function Header({inicio, missoes, loja, config}) {
 
     const routes = [
-        { path: "/inicio", label: "Inicio", img: "icons/inicio.webp", color: inicio },
-        { path: "/missoes", label: "Missões", img: "icons/pergaminho.webp", color: missoes },
-        { path: "/loja", label: "Loja", img: "icons/loja.webp", color: loja },
-        { path: "/configurar", label: "Configurações", img: "icons/engrenagens.webp", color: config },
-        { path: "", label: '0', img: "icons/chama-cinza.webp" },
-        { path: "/perfil", label: "", img: "icons/perfil.webp" }
+        { path: "/inicio", label: "Inicio", img: "../icons/inicio.webp", color: inicio },
+        { path: "/missoes", label: "Missões", img: "../icons/pergaminho.webp", color: missoes },
+        { path: "/loja", label: "Loja", img: "../icons/loja.webp", color: loja },
+        { path: "/configurar", label: "Configurações", img: "../icons/engrenagens.webp", color: config },
+        { path: "", label: '0', img: "../icons/chama-cinza.webp" },
+        { path: "/perfil", label: "", img: "../icons/perfil.webp" }
     ]
 
     return (

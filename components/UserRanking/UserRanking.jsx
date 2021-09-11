@@ -1,6 +1,6 @@
 import react, { useState, useEffect } from "react";
 import axios from "axios";
-import styles from "./userRanking.module.scss"
+import DB from "../../pages/api/MySQL";
 import {
     Table,
     Thead,
@@ -14,23 +14,19 @@ import {
     Button, 
     Center
 } from "@chakra-ui/react"
+import styles from "./userRanking.module.scss"
 
 function UserRanking() {
     const [ranking, setRanking] = useState([]);
 
     useEffect(() => {
-        listarRanking()
+        DB.listarRanking().then(setRanking)
     }, []);
 
-
-    useEffect(() => {
-        console.log(ranking)
-    }, [ranking])
-
-    async function listarRanking() {
-        const res = await axios.get(`http://localhost/api/ranking.php`)
-        setRanking(res.data.result);
-    }
+    // async function listarRanking() {
+    //     const res = await axios.get(`http://localhost/api/ranking.php`)
+    //     setRanking(res.data.result);
+    // }
 
 
     return (

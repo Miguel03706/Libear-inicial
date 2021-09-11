@@ -8,34 +8,28 @@ import {
 import Link from "next/link";
 import axios from "axios";
 import AuthContext from "../state/Auth/Context"
-
+import DB from "../../pages/api/MySQL";
 import styles from "./atividades.module.scss";
 
 
 function Atividades() {
     const initialFocusRef = React.useRef()
-    const usuario = useContext(AuthContext);
+    const usuario = useContext(AuthContext)
 
-    const [atividades, setAtividades] = useState([]);
     const [progresso, setProgresso] = useState([]);
+    const [atividades, setAtividades] = useState([]);
     const [color, setColor] = useState('');
 
-    async function listarAtividades() {
-        const res = await axios.get(`http://localhost/api/atividades.php?`);
-        setAtividades(res.data.result);
-    }
-    async function listarProgresso() {
-        const res = await axios.get(`http://localhost/api/progresso.php?id=${usuario.uid}`);
-        setProgresso(res.data.result[0]);
-    }
     useEffect(() => {
-        listarAtividades();
-        listarProgresso();
+        DB.listarProgresso(usuario.uid).then(setProgresso);
+        DB.exibirAtividade().then(setAtividades);
     }, []);
+    
     useEffect(() => {
         console.log(progresso)
-        console.log(atividades)
     }, [progresso]);
+ 
+   
 
     useEffect(() => {
         if (localStorage.getItem('chakra-ui-color-mode') == "dark") {
@@ -48,10 +42,16 @@ function Atividades() {
 
     return (
         <>
+            {atividades.length <= 0 &&
+               <div className={styles.loading}>
+               <img src="../icons/uteis/loading.gif" alt="carregando"/>
+           </div>
+            }
+
             {atividades.map(atividade => (
                 <div key={atividade.id_atividade} className={styles.lista}>
                     <Center>
-                        <CircularProgress value={progresso.atividade1} size="100px" color={color}>
+                        <CircularProgress value="15" size="100px" color={color}>
                             <CircularProgressLabel>
                                 <Popover initialFocusRef={initialFocusRef}
                                     placement="bottom"
@@ -64,7 +64,7 @@ function Atividades() {
                                         <PopoverContent boxShadow="none !important">
                                             <PopoverArrow />
                                             <div className={styles.licao} key={atividade.id_atividade}>
-                                                <div className={styles.titulo}><Center>{atividade.titulo}</Center></div>
+                                                <div className={styles.titulo}><Center><h2>{atividade.titulo}</h2></Center></div>
                                                 {atividade.progresso == 0 ? "lição 0/4" : ""}
                                                 {atividade.progresso == 25 ? "lição 1/4" : ""}
                                                 {atividade.progresso == 50 ? "lição 2/4" : ""}
@@ -83,13 +83,13 @@ function Atividades() {
                                         </PopoverContent>
                                     </Portal>
                                 </Popover>
-
                             </CircularProgressLabel>
                         </CircularProgress>
                     </Center>
                 </div>
             ))
             }
+         
         </>
     )
 }

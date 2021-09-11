@@ -64,11 +64,6 @@ function Login() {
         }
     }
 
-    const handleLogout = async ()=>{
-        API.logOut()
-    }
-
-
     const LoginButton = <Button onClick={handleLogin} colorScheme="teal">Logar</Button>
 
     return (

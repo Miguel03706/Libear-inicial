@@ -4,12 +4,7 @@ import { ChakraProvider, CSSReset, ColorModeScript } from "@chakra-ui/react"
 import AuthProvider from "../components/state/Auth/Provider"
 import '../styles/globals.css'
 
-
 function MyApp({ Component, pageProps }) {
-//   const usuario = useContext(AuthContext)
-// useEffect(() => {
-//   console.log(usuario)
-// },[usuario])
 
   return (
     <AuthProvider>
@@ -27,8 +22,6 @@ function MyApp({ Component, pageProps }) {
 }
 
 /*
-
-   
     <div className="mobile-hide">
     </div>
     
@@ -36,7 +29,6 @@ function MyApp({ Component, pageProps }) {
         <div className="desktop-hide">
         </div>
     </div>
-
 */
 
 export default MyApp
