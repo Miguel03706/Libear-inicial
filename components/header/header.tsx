@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Link from "next/link"
 import { Image, Button } from "@chakra-ui/react";
+import AuthContext from "../state/Auth/Context";
 import styles from "./header.module.scss";
 
 
@@ -12,14 +13,15 @@ export interface HeaderProps{
 
 //<Image size="64px" src="images/foto-perfil.webp" alt="foto de perfil" />
 export default function Header({inicio, missoes, loja, config}) {
+    const usuario = useContext(AuthContext);
 
-    const routes = [
+     const routes = [
         { path: "/inicio", label: "Inicio", img: "../icons/inicio.webp", color: inicio },
         { path: "/missoes", label: "Missões", img: "../icons/pergaminho.webp", color: missoes },
         { path: "/loja", label: "Loja", img: "../icons/loja.webp", color: loja },
         { path: "/configurar", label: "Configurações", img: "../icons/engrenagens.webp", color: config },
         { path: "", label: '0', img: "../icons/chama-cinza.webp" },
-        { path: "/perfil", label: "", img: "../icons/perfil.webp" }
+        { path: "/perfil", label: "", img: `user/user_img/${usuario.photoURL}.webp` }
     ]
 
     return (

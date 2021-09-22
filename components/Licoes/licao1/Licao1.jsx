@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import styles from "../licoes.module.scss";
 
-function Licao1({ slug, handleNext }) {
+function Licao1({ slug, handleNext, index }) {
     const [licao, setLicao] = useState([]);
     const [licaoOp, setLicaoOp] = useState([]);
     const [res, setRes] = useState('');
@@ -46,7 +46,7 @@ function Licao1({ slug, handleNext }) {
 
     const handleVerifica = useCallback((evt) => {
         evt.preventDefault();
-        if (res == verifica || formik.values.resultado == verifica) {
+        if (res.toLowerCase() == verifica.toLowerCase() || formik.values.resultado.toLowerCase().trim() == verifica.toLowerCase()) {
             toast({
                 title: "Sucesso",
                 description: "Você acertou a questão",
@@ -59,9 +59,9 @@ function Licao1({ slug, handleNext }) {
         } else if (formik.values.resultado !== verifica && formik.values.resultado !== '') {
             toast({
                 title: "Erro",
-                description: "Você errou a questão, verifique se está escrito corretamente ou se possui espaços desnecessários",
+                description: "Você errou a questão, verifique se está escrito corretamente",
                 status: "error",
-                duration: 3000,
+                duration: 2000,
                 isClosable: false,
             })
         } else
@@ -96,9 +96,6 @@ function Licao1({ slug, handleNext }) {
                                     <Center>
                                         <RadioGroup className={styles.RadioGroup}>
                                             <Stack direction="row">
-                                                {/* <Box as="button" className={styles.Boxinput1}  maxW="md" borderWidth="1px" borderRadius="lg" overflow="hidden" >
-                                                    <label className={styles.Text}>aaa</label> */}
-                                                {/* </Box> */}
                                                 <Radio value="1" onChange={(e) => setRes(atividade.licao.atividade1.options[licaoOp[0]])} className={styles.Input1}>{atividade.licao.atividade1.options[licaoOp[0]]}</Radio>
                                                 <Radio value="2" onChange={(e) => setRes(atividade.licao.atividade1.options[licaoOp[1]])}>{atividade.licao.atividade1.options[licaoOp[1]]}</Radio>
                                                 <Radio value="3" onChange={(e) => setRes(atividade.licao.atividade1.options[licaoOp[2]])}>{atividade.licao.atividade1.options[licaoOp[2]]}</Radio>

@@ -60,7 +60,7 @@ function licao({ slug }) {
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <Licao1 slug={slug} handleNext={handleNext} />
+                        <Licao1 slug={slug} handleNext={handleNext} index={tabIndex}/>
                     </TabPanel>
                     <TabPanel>
                         <Licao2 slug={slug} handleNext={handleNext} />
@@ -75,19 +75,19 @@ function licao({ slug }) {
                         <Licao5 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                        <Licao1 slug={slug} handleNext={handleNext} />
+                        <Licao6 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                        <Licao2 slug={slug} handleNext={handleNext} />
+                        <Licao7 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                        <Licao3 slug={slug} handleNext={handleNext} />
+                        <Licao8 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                        <Licao4 slug={slug} handleNext={handleNext} />
+                        <Licao9 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                        <Licao5 slug={slug} handleNext={handleNext} />
+                        <Licao10 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
                     <div className="mobile-hide">

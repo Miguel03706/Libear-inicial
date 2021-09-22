@@ -1,7 +1,4 @@
 import axios from "axios";
-import firebase from "firebase/app";
-import "firebase/firebase-auth";
-
 
 export default {
     listarProgresso: async (userId) => {
@@ -20,4 +17,15 @@ export default {
         const res = await axios.get(`http://localhost/api/explicacao.php?slug=${slug}`);
         return res.data.result;
     },
+    exibirMissoes: async (id) =>{
+        const res = await axios.get(`http://localhost/api/ListarMissao.php?id=${id}`);
+        return res.data.result;
+    },
+    userMissoes: async (id) =>{
+        const res = await axios.get(`http://localhost/api/ListarMissao.php?id=${id}`);
+        return res.data.result;
+    },
+    CompletaMissao: async (id,complete) =>{
+        await axios.get(`http://localhost/api/missao.php?id=${id}&complete=${complete}`);
+    }
 }

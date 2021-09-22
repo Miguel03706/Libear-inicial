@@ -45,7 +45,7 @@ function Licao5({ slug, handleNext }) {
 
     const handleVerifica = useCallback((evt) => {
         evt.preventDefault();
-        if (res == verifica || formik.values.resultado == verifica) {
+        if (res.toLowerCase() == verifica.toLowerCase() || formik.values.resultado.toLowerCase().trim() == verifica.toLowerCase()) {
             toast({
                 title: "Sucesso",
                 description: "Você acertou a questão",
@@ -58,9 +58,9 @@ function Licao5({ slug, handleNext }) {
         } else if (formik.values.resultado !== verifica && formik.values.resultado !== '') {
             toast({
                 title: "Erro",
-                description: "Você errou a questão, verifique se está escrito corretamente ou se possui espaços desnecessários",
+                description: "Você errou a questão, verifique se está escrito corretamente",
                 status: "error",
-                duration: 3000,
+                duration: 2000,
                 isClosable: false,
             })
         } else

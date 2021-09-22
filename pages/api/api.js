@@ -48,7 +48,7 @@ export default {
 
       user.updateProfile({
         displayName: "User",
-        photoURL: "abelha"
+        photoURL: "polar"
       })
     }).then(() => {
       location.href = "http://localhost:3000/entrar"
@@ -74,8 +74,8 @@ export default {
     let result = await firebase.auth().signInWithPopup(provider);
     return result;
   },
-  logOut: () => {
-    firebase.auth().signOut().then(() => {
+  logOut: async () => {
+    await firebase.auth().signOut().then(() => {
       location.href = "http://localhost:3000/entrar"
     })
   },
