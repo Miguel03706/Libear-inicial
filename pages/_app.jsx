@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 import Footer from "../components/footer"
 import { ChakraProvider, CSSReset, ColorModeScript } from "@chakra-ui/react"
 import AuthProvider from "../components/state/Auth/Provider"
+import AuthContext from "../components/state/Auth/Context"
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {

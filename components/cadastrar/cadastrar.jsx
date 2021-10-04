@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useCallback, useState } from "react";
 import Link from "next/link"
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import axios from "axios";
+import { useRouter } from 'next/router';
 import {
     Image, Center, Button, Input,
 } from "@chakra-ui/react";
@@ -14,6 +14,8 @@ import styles from "./cadastrar.module.scss";
 function Cadastrar() {
     const [result, setResult] = useState([]);
     const user = useContext(AuthContext)
+    const router = useRouter();
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -25,7 +27,7 @@ function Cadastrar() {
                 .email("preencha com um email válido"),
             password: yup.string()
                 .required('Você precisa digitar sua senha.')
-                .min(8, "a senha deve ter no minimo 8 caracteres")
+                .min(8, "a senha deve ter no minimo 6 caracteres")
         }),
         validadeOnChange: false, //valida a acada caractere adicionado
         validateOnBlur: false, // valida ao sair do form(ou clicar fora do input)
@@ -38,7 +40,7 @@ function Cadastrar() {
    },[user])
     async function cadastrarDados() {
         let {email, password} = formik.values
-        API.criarContaFB(email, password)
+        API.criarContaFB(email, password);
     }
    
     const LoginButton = <Button onClick={cadastrarDados} colorScheme="teal">Cadastrar</Button>

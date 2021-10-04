@@ -8,8 +8,7 @@ import styles from "../UserPerfil.module.scss";
 function UserMobile({handleCopy}){
     return(
         <>
-         <Center p="10px">
-                            
+         <Center p="10px">  
                         </Center>
                         <Center p="10px">
                             <Box bg="#CCCCCC" w="80vw" h="250px" p={4} color="black" border="solid black 1px" borderRadius="10px">
@@ -23,7 +22,7 @@ function UserMobile({handleCopy}){
                                         <Center><Image src='icons/amigos.webp' h="auto" marginTop="70%" /></Center>
                                     </GridItem>
                                     <GridItem colSpan={3}>
-                                        <Center textAlign="center"><p><h2>Convide Amigos!</h2></p></Center>
+                                        <Center textAlign="center"><h2>Convide Amigos!</h2></Center>
                                         <Center textAlign="center"> Chame seus amigos e ajude a lingua brasileira de sinais</Center>
                                     </GridItem>
                                     <GridItem colSpan={3}>

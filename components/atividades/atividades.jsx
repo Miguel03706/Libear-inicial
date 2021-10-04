@@ -1,35 +1,24 @@
 //import styles from "./atividades.module.scss";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import {
     CircularProgress, CircularProgressLabel, Image, Center, Popover, PopoverTrigger,
     PopoverContent, PopoverHeader, PopoverBody, PopoverArrow, PopoverCloseButton,
-    Button, Portal, useDisclosure
+    Button, Portal, useDisclosure, VisuallyHidden
 } from "@chakra-ui/react";
 import Link from "next/link";
-import axios from "axios";
 import AuthContext from "../state/Auth/Context"
 import DB from "../../pages/api/MySQL";
 import styles from "./atividades.module.scss";
 
+const Atividades = () => {
 
-function Atividades() {
     const initialFocusRef = React.useRef()
-    const usuario = useContext(AuthContext)
-
-    const [progresso, setProgresso] = useState([]);
     const [atividades, setAtividades] = useState([]);
     const [color, setColor] = useState('');
 
     useEffect(() => {
-        DB.listarProgresso(usuario.uid).then(setProgresso);
         DB.exibirAtividade().then(setAtividades);
     }, []);
-    
-    useEffect(() => {
-        console.log(progresso)
-    }, [progresso]);
- 
-   
 
     useEffect(() => {
         if (localStorage.getItem('chakra-ui-color-mode') == "dark") {
@@ -43,55 +32,61 @@ function Atividades() {
     return (
         <>
             {atividades.length <= 0 &&
-               <div className={styles.loading}>
-               <img src="../icons/uteis/loading.gif" alt="carregando"/>
-           </div>
+                <>
+                    <div className={styles.loading}>
+                        <img src="../icons/uteis/loading.gif" alt="carregando" />
+                    </div>
+                </>
             }
-
-            {atividades.map(atividade => (
-                <div key={atividade.id_atividade} className={styles.lista}>
-                    <Center>
-                        <CircularProgress value="15" size="100px" color={color}>
-                            <CircularProgressLabel>
-                                <Popover initialFocusRef={initialFocusRef}
-                                    placement="bottom"
-                                    closeOnBlur={true}
-                                >
-                                    <PopoverTrigger>
-                                        <Button colorScheme="#00FFFFFF" className={styles.button} h="80px"><Center><Image src={`icons/atividades/${atividade.img}`} h="70px" /></Center></Button>
-                                    </PopoverTrigger>
-                                    <Portal>
-                                        <PopoverContent boxShadow="none !important">
-                                            <PopoverArrow />
-                                            <div className={styles.licao} key={atividade.id_atividade}>
-                                                <div className={styles.titulo}><Center><h2>{atividade.titulo}</h2></Center></div>
-                                                {atividade.progresso == 0 ? "lição 0/4" : ""}
-                                                {atividade.progresso == 25 ? "lição 1/4" : ""}
-                                                {atividade.progresso == 50 ? "lição 2/4" : ""}
-                                                {atividade.progresso == 75 ? "lição 3/4" : ""}
-                                                {atividade.progresso >= 100 ? "lição 4/4" : ""}
-                                            </div>
-                                            <PopoverCloseButton />
-                                            <PopoverBody className={styles.popBody}>
-                                                <Link href="explicacao/[explicacao]" as={`explicacao/${atividade.id_atividade}`}>
-                                                    <div className={styles.button}><Button colorScheme="blue" w="100%">Explicação</Button><br /></div>
-                                                </Link>
-                                                <Link href="licao/[licao]" as={`licao/${atividade.id_atividade}`}>
-                                                    <Button colorScheme="blue" w="100%">Atividade</Button>
-                                                </Link>
-                                            </PopoverBody>
-                                        </PopoverContent>
-                                    </Portal>
-                                </Popover>
-                            </CircularProgressLabel>
-                        </CircularProgress>
-                    </Center>
-                </div>
-            ))
-            }
-         
+            <>
+                {atividades.map(atividade => (
+                    <div key={atividade.id_atividade} className={styles.lista}>
+                        <Center>
+                            <CircularProgress value={atividade.progresso[`${atividade.id_atividade}`]['progresso']} size="100px" color={color}>
+                                <CircularProgressLabel>
+                                    <Popover initialFocusRef={initialFocusRef}
+                                        placement="bottom"
+                                        closeOnBlur={true}
+                                    >
+                                        <PopoverTrigger>
+                                            <Button colorScheme="#00FFFFFF" className={styles.button} h="80px"><Center><Image src={`icons/atividades/${atividade.img}.webp`} h="70px" /></Center></Button>
+                                        </PopoverTrigger>
+                                        <Portal>
+                                            <PopoverContent boxShadow="none !important">
+                                                <PopoverArrow />
+                                                <div className={styles.licao} key={atividade.id_atividade}>
+                                                    <div className={styles.titulo}><Center><h2>{atividade.titulo}</h2></Center></div>
+                                                    {atividade.progresso == 0 ? "lição 0/4" : ""}
+                                                    {atividade.progresso == 25 ? "lição 1/4" : ""}
+                                                    {atividade.progresso == 50 ? "lição 2/4" : ""}
+                                                    {atividade.progresso == 75 ? "lição 3/4" : ""}
+                                                    {atividade.progresso >= 100 ? "lição 4/4" : ""}
+                                                </div>
+                                                <PopoverCloseButton />
+                                                <PopoverBody className={styles.popBody}>
+                                                    <Link href="explicacao/[explicacao]" as={`explicacao/${atividade.id_atividade}`}>
+                                                        <div className={styles.button}><Button colorScheme="blue" w="100%">Explicação</Button><br /></div>
+                                                    </Link>
+                                                    <Link href="licao/[licao]" as={`licao/${atividade.id_atividade}`}>
+                                                        <Button colorScheme="blue" w="100%">Atividade</Button>
+                                                    </Link>
+                                                </PopoverBody>
+                                            </PopoverContent>
+                                        </Portal>
+                                    </Popover>
+                                </CircularProgressLabel>
+                            </CircularProgress>
+                        </Center>
+                    </div>
+                ))}
+            </>
         </>
-    )
+    );
 }
-
+// Atividades.getInitialProps = async () => {
+//     const usuario = useContext(AuthContext);
+//     const response = await DB.exibirAtividade(usuario.uid);
+//     console.log(response)
+//     //return { dados: res.data }
+//   }
 export default Atividades;

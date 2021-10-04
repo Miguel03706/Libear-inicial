@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firebase-auth";
 import "firebase/firebase-firestore";
 import firebaseConfig from "./firebaseConfig";
+import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from "firebase/auth";
 import axios from "axios";
 
 
@@ -12,8 +13,6 @@ if (!firebase.apps.length) {
   const firebaseApp = firebase.app(); // if already initialized, use that one
   var db = firebaseApp.firestore();
 }
-//const db = firebaseApp.firestore();
-
 const user = firebase.auth().currentUser;
 
 const handleError = (error) => {
@@ -36,10 +35,12 @@ const handleError = (error) => {
   }
 }
 
+
 export default {
   _firebase: () => { return firebase },
   firebaseUsuario: async () => {
-    return firebase.auth().currentUser;
+    const res = await firebase.auth().currentUser;
+    return res;
   },
   criarContaFB: async (email, senha) => {
     let sucesso = await firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
@@ -52,13 +53,13 @@ export default {
       })
     }).then(() => {
       location.href = "http://localhost:3000/entrar"
-    }).catch((error)=>{
+    }).catch((error) => {
       handleError(error);
     })
   },
   logarContaFB: async (email, senha) => {
-    let sucesso = await firebase.auth().signInWithEmailAndPassword(email, senha).then(() => {
-      location.href = "http://localhost:3000/inicio";
+    let sucesso = await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+      return firebase.auth().signInWithEmailAndPassword(email, senha);
     }).catch((error) => {
       handleError(error);
     })
@@ -82,7 +83,7 @@ export default {
   userImg: () => {
     var docRef = db.collection("userImg");
 
-    return docRef.get().then((querySnapshot) => {
+    return docRef.orderBy("id").get().then((querySnapshot) => {
       let img = []
       querySnapshot.forEach((doc) => {
         img.push(doc.data())
@@ -133,60 +134,10 @@ export default {
       alert('Imagem alterada com sucesso')
     })
   },
+//   deletarConta: async () => {
+//     const user = firebase.auth().currentUser;
+//     const res = await axios.get(`http://localhost/api/DeletarConta.php?id=${userId}`);
+//     return res.data.result;
+// },
 }
-
-/*
-///////////////////////////////////////////////////
-
-db.collection("cities").doc("LA").set({
-    name: "Los Angeles",
-    state: "CA",
-    country: "USA"
-})
-////////////////////////////////////////////////////
-
-firebase.auth().createUserWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    // Signed in
-    var user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ..
-  });
-///////////////////////////////////////////////////
-firebase.auth().signInWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    // Signed in
-    var user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-  });
-///////////////////////////////////////////////////
-
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    var uid = user.uid;
-    // ...
-  } else {
-    // User is signed out
-    // ...
-  }
-});
-///////////////////////////////////////////////////
-function writeUserData(userId, name, email, imageUrl) {
-  firebase.database().ref('users/' + userId).set({
-    username: name,
-    email: email,
-    profile_picture : imageUrl
-  });
-}
-*/
 

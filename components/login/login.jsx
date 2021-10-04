@@ -3,7 +3,7 @@ import Link from "next/link"
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import AuthContext from "../state/Auth/Context";
-import axios from "axios";
+import { useRouter } from 'next/router';
 import styles from "./login.module.scss";
 import API from "../../pages/api/Api";
 import {
@@ -13,8 +13,8 @@ import {
 function Login() {
     const toast = useToast()
     const [result, setResult] = useState([]);
-
-    const usuario = useContext(AuthContext)
+    const usuario = useContext(AuthContext);
+    const router = useRouter();
 
     const formik = useFormik({
         initialValues: {
@@ -36,18 +36,19 @@ function Login() {
         let redirect = JSON.parse(localStorage.getItem("redirect"));
         redirect ? toast({ description: "Cadastrado com sucesso" }) : null
         window.localStorage.removeItem("isCreate");
-        // usuario !== null ? window.location.href = "/inicio" : null
     }, [])
 
     useEffect(() => {
-       // usuario !== null ? window.location.href = "/inicio" : null
-        console.log(usuario);
+        var original = Promise.resolve(usuario);
+        original.then(function(v) {
+            v !== null ? router.push('/inicio') : null
+          });
     }, [usuario])
 
-    const handleLogin = (evt) => {
+    const handleLogin = async (evt) => {
         evt.preventDefault();
         let { email, password } = formik.values
-        API.logarContaFB(email, password)
+        await API.logarContaFB(email, password).then();
     };
 
 
@@ -64,7 +65,6 @@ function Login() {
         }
     }
 
-    const LoginButton = <Button onClick={handleLogin} colorScheme="teal">Logar</Button>
 
     return (
         <div className={styles.container}>
@@ -88,7 +88,9 @@ function Login() {
                     className={styles.password}
                     autoComplete="off" /></p></Center>
 
-                <Center> {LoginButton}</Center>
+                <Center>
+                        <Button onClick={handleLogin} colorScheme="teal">Logar</Button>
+                </Center>
             </form>
             {/* <div>
                 <Button colorScheme="facebook" onClick={handleGoogle}>
@@ -96,9 +98,6 @@ function Login() {
                 </Button>
                 <Button colorScheme="facebook" onClick={handleFacebook}>
                     Facebook
-                </Button>
-                 <Button colorScheme="facebook" onClick={handleLogout}>
-                    Deslogar
                 </Button>
             </div> */}
             <div className={styles.Link}>

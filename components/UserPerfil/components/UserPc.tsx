@@ -20,7 +20,7 @@ function UserPc({handleCopy}){
                                         <Center><Image src='icons/amigos.webp' h="100%" marginTop="10%" /></Center>
                                     </GridItem>
                                     <GridItem colSpan={3}>
-                                        <Center textAlign="center"><p><h2>Convide Amigos!</h2></p></Center>
+                                        <Center textAlign="center"><h2>Convide Amigos!</h2></Center>
                                         <Center textAlign="center"> Chame seus amigos e ajude a lingua brasileira de sinais</Center>
                                     </GridItem>
                                     <GridItem colSpan={3}>

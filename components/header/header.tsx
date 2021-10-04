@@ -4,7 +4,6 @@ import { Image, Button } from "@chakra-ui/react";
 import AuthContext from "../state/Auth/Context";
 import styles from "./header.module.scss";
 
-
 //const [complete, setComplete] = useState("0");
 //const [chama, setChama] = useState("images/chama-cinza.webp");
 export interface HeaderProps{
@@ -21,7 +20,7 @@ export default function Header({inicio, missoes, loja, config}) {
         { path: "/loja", label: "Loja", img: "../icons/loja.webp", color: loja },
         { path: "/configurar", label: "Configurações", img: "../icons/engrenagens.webp", color: config },
         { path: "", label: '0', img: "../icons/chama-cinza.webp" },
-        { path: "/perfil", label: "", img: `user/user_img/${usuario.photoURL}.webp` }
+        { path: "/perfil", label: "", img: `../user/user_img/${usuario.photoURL}.webp` }
     ]
 
     return (

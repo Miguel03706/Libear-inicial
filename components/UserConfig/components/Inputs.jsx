@@ -138,6 +138,11 @@ function Inputs() {
                     Deslogar
                 </Button>
             </Center>
+            {/* <Center marginTop="2vh" marginBottom="5vh">
+                <Button colorScheme="red" variant="solid" onClick={handleLogout} w="200px">
+                    Excluir conta
+                </Button>
+            </Center> */}
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />

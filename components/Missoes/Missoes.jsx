@@ -10,23 +10,19 @@ function Missoes() {
     const [completos, setCompletos] = useState([])
 
     useEffect(() => {
-        DB.exibirMissoes(usuario.uid).then(setMissoes)
+        DB.exibirMissoes().then(setMissoes)
     }, [])
 
     const handleFinaliza = useCallback(evt => {
         evt.preventDefault();
-        console.log(id)
+        //console.log(id)
     }, [missoes])
 
-    useEffect(() => {
-        
-        DB.CompletaMissao(usuario.uid, completos);
+    useEffect(async() => {
+        await DB.completaMissao(usuario.uid, completos);
+        DB.exibirMissoes().then(setMissoes)
     }, [completos])
 
-
-    useEffect(() => {
-        console.log(missoes)
-    }, [missoes])
     return (
         <div className={styles.container}>
             <div className={styles.missoes}>
@@ -37,27 +33,25 @@ function Missoes() {
                 }
                 {missoes.map(task => {
                     return (
-                        <>
                             <div key={task.id_missao}>
-                                <Flex color="white" borderBottom="1px solid black">
+                                <Flex color="white">
                                     {task.missoes[`${task.id_missao}`].complete == 0 ?
                                         <>
-                                            <Center w="30%" bg="green.500">
+                                            <Center w="30%" bg="green.500" borderBottom="1px solid black">
                                                 <Text>ICONE</Text>
                                             </Center>
-                                            <Square bg="blue.500" size="20%">
-                                                <Button colorScheme="teal" onClick={(e) => setCompletos(task.id_missao)}>Teste</Button>
+                                            <Square bg="blue.500" size="20%" p="5px" borderBottom="1px solid black">
+                                                <Button colorScheme="teal" onClick={(e) => setCompletos(task.id_missao)}>Completar</Button>
                                             </Square>
-                                            <Box flex="1" bg="tomato" >
-                                                <Center><Text>{task.texto}</Text></Center>
-                                            </Box>
+                                            <Center w="50%" bg="green.500" borderBottom="1px solid black">
+                                                <Text>{task.texto}</Text>
+                                            </Center>
                                         </>
                                         :
                                         <></>
                                     }
                                 </Flex>
                             </div>
-                        </>
                     )
                 })}
             </div>

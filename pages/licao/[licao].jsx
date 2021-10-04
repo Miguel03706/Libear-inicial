@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { GetServerSideProps } from 'next';
-import axios from 'axios';
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Progress, Button,
-     Center, Image, Text, SimpleGrid, Skeleton
+import {
+    Tabs, TabList, TabPanels, Tab, TabPanel, Box, Progress, Button,
+    Center, Image, Text, SimpleGrid, Skeleton
 } from "@chakra-ui/react";
 import Link from "next/link";
 import DB from "../api/MySQL"
+import AuthContext from "../../components/state/Auth/Context";
 import Licao1 from "../../components/Licoes/licao1";
 import Licao2 from "../../components/Licoes/licao2";
 import Licao3 from "../../components/Licoes/licao3";
@@ -16,7 +17,7 @@ import Licao7 from "../../components/Licoes/licao7";
 import Licao8 from "../../components/Licoes/licao8";
 import Licao9 from "../../components/Licoes/licao9";
 import Licao10 from "../../components/Licoes/licao10";
-
+import styles from "./licao.module.scss";
 
 export async function getServerSideProps(ctx) {
     const slug = ctx.params.licao;
@@ -29,17 +30,24 @@ export async function getServerSideProps(ctx) {
 
 function licao({ slug }) {
     const [tabIndex, setTabIndex] = React.useState(0)
-
+    const usuario = useContext(AuthContext)
     const handleTabsChange = (index) => {
         setTabIndex(index)
     }
     const handleNext = () => {
         setTabIndex(tabIndex + 1);
     }
+
+    const handleFinaliza = useCallback(evt => {
+        evt.preventDefault();
+        DB.setProgresso(usuario.uid, slug)
+    }, [])
+
+
     return (
         <>
             <Box p='10'>
-                <Link href="/inicio" as={`/inicio`}>
+                <Link href="/inicio">
                     <Button marginBottom="2vh"><h2>Voltar</h2></Button>
                 </Link>
                 <Progress colorScheme="green" height="32px" value={tabIndex * 11} max={100} borderRadius="10px" />
@@ -60,7 +68,7 @@ function licao({ slug }) {
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <Licao1 slug={slug} handleNext={handleNext} index={tabIndex}/>
+                        <Licao1 slug={slug} handleNext={handleNext} index={tabIndex} />
                     </TabPanel>
                     <TabPanel>
                         <Licao2 slug={slug} handleNext={handleNext} />
@@ -90,14 +98,19 @@ function licao({ slug }) {
                         <Licao10 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                    <div className="mobile-hide">
-                <SimpleGrid columns={2} spacing={10} m="10">
-                    <Box height="auto" width="100%">aaaa</Box>
-                    <Box height="auto" width="80%">
-                        <Skeleton height="400px" />
-                    </Box>
-                </SimpleGrid>
-            </div>
+                        <div className="mobile-hide">
+                            <SimpleGrid columns={2} spacing={10} m="10">
+                                <Box height="auto" width="100%">aaaa</Box>
+                                <Box height="auto" width="80%">
+                                    <Link href="../inicio" as={`../inicio`}>
+                                        <div className={styles.button}>
+                                            <Button colorScheme="blue" w="100%" onClick={handleFinaliza}>Próximo</Button><br />
+                                            </div>
+                                    </Link>
+                                    <Skeleton height="400px" />
+                                </Box>
+                            </SimpleGrid>
+                        </div>
                     </TabPanel>
                 </TabPanels>
             </Tabs>

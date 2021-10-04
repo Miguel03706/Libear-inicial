@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
-import axios from "axios";
 import styles from "./UserPerfil.module.scss";
 import UserPc from "./components/UserPc";
 import UserMobile from "./components/UserMobile";
@@ -12,9 +11,6 @@ import UserRanking from "../UserRanking";
 function UserPerfil() {
     const toast = useToast()
     const usuario = useContext(AuthContext)
-    
-    useEffect(() => {
-    }, []);
 
     const handleCopy = useCallback((evt) => {
         evt.preventDefault();
@@ -28,23 +24,23 @@ function UserPerfil() {
         })
     }, []);
 
-
     return (
         <div className={styles.container}>
             <>
                 <Center><Image src={`user/user_img/${usuario.photoURL}.webp`} h="100px" /></Center>
                 <Center>
-                    <p>
-                        <Input
-                            variant="flushed"
-                            type="text"
-                            placeholder="Digite sua senha"
-                            className={styles.password}
-                            isDisabled
-                            value={usuario.email}
-                            textAlign="center"
-                        />
-                    </p>
+
+                    <Input
+                        variant="flushed"
+                        w="auto"
+                        type="text"
+                        placeholder="Digite sua senha"
+                        className={styles.password}
+                        isDisabled
+                        value={usuario.email}
+                        textAlign="center"
+                    />
+
                 </Center>
                 <Center p="10px">
                     <UserRanking />

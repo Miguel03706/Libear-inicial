@@ -1,17 +1,13 @@
 import react, { useState, useEffect } from "react";
-import axios from "axios";
 import DB from "../../pages/api/MySQL";
 import {
     Table,
     Thead,
     Tbody,
-    Tfoot,
     Tr,
     Th,
     Td,
-    TableCaption,
     Text,
-    Button, 
     Center
 } from "@chakra-ui/react"
 import styles from "./userRanking.module.scss"
@@ -22,12 +18,6 @@ function UserRanking() {
     useEffect(() => {
         DB.listarRanking().then(setRanking)
     }, []);
-
-    // async function listarRanking() {
-    //     const res = await axios.get(`http://localhost/api/ranking.php`)
-    //     setRanking(res.data.result);
-    // }
-
 
     return (
         <>
