@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useCallback } from "react"
 import DB from "../../pages/api/MySQL";
 import AuthContext from "../state/Auth/Context"
-import { Text, Flex, Center, Square, Box, Button } from "@chakra-ui/react";
+import { Text, Flex, Center, Square, Box, Button, Image } from "@chakra-ui/react";
 import styles from "./missoes.module.scss"
 
 function Missoes() {
@@ -37,10 +37,10 @@ function Missoes() {
                                 <Flex color="white">
                                     {task.missoes[`${task.id_missao}`].complete == 0 ?
                                         <>
-                                            <Center w="30%" bg="green.500" borderBottom="1px solid black">
-                                                <Text>ICONE</Text>
+                                            <Center w="30%"  borderBottom="1px solid black">
+                                                <Image src={`../images/missoes/${task.img}.webp`} alt={`${task.texto}`} h="100px" w="auto" />
                                             </Center>
-                                            <Square bg="blue.500" size="20%" p="5px" borderBottom="1px solid black">
+                                            <Square bg="blue.500" w="20%" p="5px" borderBottom="1px solid black">
                                                 <Button colorScheme="teal" onClick={(e) => setCompletos(task.id_missao)}>Completar</Button>
                                             </Square>
                                             <Center w="50%" bg="green.500" borderBottom="1px solid black">

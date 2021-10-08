@@ -30,6 +30,9 @@ const handleError = (error) => {
       case 'auth/email-already-in-use':
         alert('Email já está em uso, coloque outro e tente novamente');
         break
+      case "auth/invalid-email":
+        alert('Insira um email válido!');
+        break
 
     }
   }
@@ -96,20 +99,23 @@ export default {
   },
   userUpdate: (email, userName) => {
     const user = firebase.auth().currentUser;
-
-    user.updateProfile({
-      displayName: userName,
-    }).then(() => {
-      alert('Nome de usuário alterado com sucesso')
-      axios.get(`http://localhost/api/userUpdate.php?id=${user.uid}&user=${userName}`)
-    }).catch((error) => {
-      console.log(error);
-    });
-    user.updateEmail(email).then(() => {
-      alert('Email alterado com sucesso')
-    }).catch((error) => {
-      handleError(error);
-    })
+    if (email !== "" && userName !== "") {
+      user.updateProfile({
+        displayName: userName,
+      }).then(() => {
+        alert('Nome de usuário alterado com sucesso')
+        axios.get(`http://localhost/api/userUpdate.php?id=${user.uid}&user=${userName}`)
+      }).catch((error) => {
+        console.log(error);
+      });
+      user.updateEmail(email).then(() => {
+        alert('Email alterado com sucesso')
+      }).catch((error) => {
+        handleError(error);
+      })
+    } else {
+      alert('Insira um valor válido')
+    }
   },
   userUpdatePassword: (password) => {
     const credential = firebase.auth.EmailAuthProvider.credential(
@@ -134,10 +140,16 @@ export default {
       alert('Imagem alterada com sucesso')
     })
   },
-//   deletarConta: async () => {
-//     const user = firebase.auth().currentUser;
-//     const res = await axios.get(`http://localhost/api/DeletarConta.php?id=${userId}`);
-//     return res.data.result;
-// },
+  deletarConta: async (userId) => {
+    const user = firebase.auth().currentUser;
+
+    user.delete().then(() => {
+      axios.get(`http://localhost/api/DeletarConta.php?id=${userId}`);
+      location.href = "http://localhost:3000/entrar"
+    }).catch((error) => {
+      alert(error);
+    });
+
+  },
 }
 

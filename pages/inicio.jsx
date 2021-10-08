@@ -11,9 +11,12 @@ function Begin() {
     const router = useRouter();
     useEffect(() => {
         window.localStorage.removeItem("redirect");
-        if (!(usuario)) {
-            router.push('/entrar')
-          }
+        const userKey = Object.keys(window.sessionStorage)
+        .filter(it => it.startsWith('firebase:authUser'))[0];
+        const user = userKey ? JSON.parse(sessionStorage.getItem(userKey)) : undefined;
+        if(user == undefined){
+            router.push('/entrar');
+        }
     }, []);
 
     return (

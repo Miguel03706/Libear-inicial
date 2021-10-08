@@ -26,11 +26,17 @@ export default {
     completaMissao: async (id, complete) => {
         await axios.get(`http://localhost/api/CompletarMissao.php?id=${id}&complete=${complete}`);
     },
-    comprarItens: async (comprar) => {
+    completaAtividade: async (complete) => {
         const userKey = Object.keys(window.sessionStorage)
             .filter(it => it.startsWith('firebase:authUser'))[0];
         const user = userKey ? JSON.parse(sessionStorage.getItem(userKey)) : undefined;
-        await axios.get(`http://localhost/api/comprarItens.php?id=${user.uid}&comprado=${comprar}`);
+        await axios.get(`http://localhost/api/completaAtividade.php?id=${user.uid}&id_progresso=${complete}`);
+    },
+    comprarItens: async (comprar, preco) => {
+        const userKey = Object.keys(window.sessionStorage)
+            .filter(it => it.startsWith('firebase:authUser'))[0];
+        const user = userKey ? JSON.parse(sessionStorage.getItem(userKey)) : undefined;
+        await axios.get(`http://localhost/api/comprarItens.php?id=${user.uid}&comprado=${comprar}&preco=${preco}`);
     },
     listarProgresso: async (userId) => {
         const res = await axios.get(`http://localhost/api/progresso.php?id=${userId}`);
@@ -47,12 +53,12 @@ export default {
         const res = await axios.get(`http://localhost/api/listarLoja.php?id=${user.uid}`)
         return res.data.result;
     },
-    setProgresso: async (userId, id_progresso) => {
-        const res = await axios.get(`http://localhost/api/setProgresso.php?id=${userId}&id_progresso=1`);
+    setProgresso: async (id_progresso) => {
+        const userKey = Object.keys(window.sessionStorage)
+            .filter(it => it.startsWith('firebase:authUser'))[0];
+        const user = userKey ? JSON.parse(sessionStorage.getItem(userKey)) : undefined;
+        const res = await axios.get(`http://localhost/api/setProgresso.php?id=${user.uid}&id_progresso=${id_progresso}`);
         return res.data.result[0].progresso;
     },
-    deletarConta: async (userId) => {
-        const res = await axios.get(`http://localhost/api/DeletarConta.php?id=${userId}`);
-        return res.data.result;
-    },
+ 
 }

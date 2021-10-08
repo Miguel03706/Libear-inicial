@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import axios from "axios";
 import AuthContext from "../../state/Auth/Context"
 import API from "../../../pages/api/Api";
 import {
@@ -20,7 +19,6 @@ function Inputs() {
     const [show, setShow] = useState(false)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { colorMode, toggleColorMode } = useColorMode()
-
     const handleShow = () => setShow(!show)
 
     const formik = useFormik({
@@ -55,7 +53,7 @@ function Inputs() {
         setPassword(evt.target.value)
     })
     const handleLogout = async () => {
-        API.logOut()
+        API.logOut();
     }
 
     const handleUpdate = (evt) => {

@@ -1,8 +1,5 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
-import { useFormik } from 'formik';
-import * as yup from 'yup';
 import API from "../../pages/api/Api";
-import axios from "axios";
 import AuthContext from "../state/Auth/Context"
 import Inputs from "./components/Inputs"
 import {
@@ -79,13 +76,6 @@ function UserConfig() {
                     </ModalContent>
                 </Modal>
                 <Inputs />
-                <div className="mobile-hide">
-                </div>
-                <div className="mobile">
-                    <div className="desktop-hide">
-                    </div>
-                </div>
-
             </div>
         </>
     )

@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Center, Image, Text, Button, Box, Textarea, Stack, RadioGroup, Radio, useToast, HStack, useRadioGroup } from "@chakra-ui/react";
-// import RadioCard from "../../RadioCard";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import styles from "../licoes.module.scss";

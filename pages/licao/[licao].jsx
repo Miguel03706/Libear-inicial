@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { GetServerSideProps } from 'next';
 import {
     Tabs, TabList, TabPanels, Tab, TabPanel, Box, Progress, Button,
     Center, Image, Text, SimpleGrid, Skeleton
 } from "@chakra-ui/react";
+import { useRouter } from 'next/router';
 import Link from "next/link";
 import DB from "../api/MySQL"
-import AuthContext from "../../components/state/Auth/Context";
 import Licao1 from "../../components/Licoes/licao1";
 import Licao2 from "../../components/Licoes/licao2";
 import Licao3 from "../../components/Licoes/licao3";
@@ -29,8 +29,8 @@ export async function getServerSideProps(ctx) {
 }
 
 function licao({ slug }) {
+    const router = useRouter();
     const [tabIndex, setTabIndex] = React.useState(0)
-    const usuario = useContext(AuthContext)
     const handleTabsChange = (index) => {
         setTabIndex(index)
     }
@@ -40,9 +40,8 @@ function licao({ slug }) {
 
     const handleFinaliza = useCallback(evt => {
         evt.preventDefault();
-        DB.setProgresso(usuario.uid, slug)
+        DB.completaAtividade(slug). then(router.push('/inicio'));
     }, [])
-
 
     return (
         <>
@@ -98,7 +97,7 @@ function licao({ slug }) {
                         <Licao10 slug={slug} handleNext={handleNext} />
                     </TabPanel>
                     <TabPanel>
-                        <div className="mobile-hide">
+                        <>
                             <SimpleGrid columns={2} spacing={10} m="10">
                                 <Box height="auto" width="100%">aaaa</Box>
                                 <Box height="auto" width="80%">
@@ -110,7 +109,7 @@ function licao({ slug }) {
                                     <Skeleton height="400px" />
                                 </Box>
                             </SimpleGrid>
-                        </div>
+                        </>
                     </TabPanel>
                 </TabPanels>
             </Tabs>
