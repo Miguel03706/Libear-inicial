@@ -1,9 +1,9 @@
 export default {
-    apiKey: "AIzaSyBkvx5bs1Y3wL-cXtjQNuYHYZGeK6HCoxo",
-    authDomain: "libear-85621.firebaseapp.com",
-    projectId: "libear-85621",
-    storageBucket: "libear-85621.appspot.com",
-    messagingSenderId: "877452629797",
-    appId: "1:877452629797:web:547f4ed6539598ab586ccc",
-    measurementId: "G-SG7V7ZDZVB"
+    apiKey: process.env.REACT_APP_FIREBASE_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MASSEAGINGSENDERID,
+    appId: process.env.REACT_APP_FIREBASE_APPID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID
 };
