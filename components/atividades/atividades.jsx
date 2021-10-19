@@ -6,7 +6,6 @@ import {
     Button, Portal, useDisclosure, VisuallyHidden
 } from "@chakra-ui/react";
 import Link from "next/link";
-import AuthContext from "../state/Auth/Context"
 import DB from "../../pages/api/MySQL";
 import styles from "./atividades.module.scss";
 

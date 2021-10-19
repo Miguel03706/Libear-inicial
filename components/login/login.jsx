@@ -13,6 +13,7 @@ import {
 function Login() {
     const toast = useToast()
     const [result, setResult] = useState([]);
+    const [loading, setLoading] = useState(false);
     const usuario = useContext(AuthContext);
     const router = useRouter();
 
@@ -48,7 +49,7 @@ function Login() {
     //         await API.logarContaFB(email, password);
     //     };
     //     }
-    
+
     useEffect(() => {
         //serve para pegar valor de promisse
         // var original = Promise.resolve(usuario);
@@ -65,8 +66,16 @@ function Login() {
 
     const handleLogin = async (evt) => {
         evt.preventDefault();
+        setLoading(true);
         let { email, password } = formik.values
         await API.logarContaFB(email, password);
+        const userKey = Object.keys(window.sessionStorage)
+            .filter(it => it.startsWith('firebase:authUser'))[0];
+        const user = userKey ? JSON.parse(sessionStorage.getItem(userKey)) : undefined;
+        if (user !== undefined) {
+            router.push('/inicio');
+        }
+        setLoading(false);
     };
 
 
@@ -93,7 +102,7 @@ function Login() {
             ) : null}
             <form className={styles.form}>
                 <Center><p><Input variant="flushed" className={styles.input} type='email'
-                onChange={event => event.preventDefault()}
+                    onChange={event => event.preventDefault()}
                     {...formik.getFieldProps('email')}
                     placeholder="Digite seu email"
                     className={styles.email} /></p></Center>
@@ -107,7 +116,7 @@ function Login() {
                     autoComplete="off" /></p></Center>
 
                 <Center>
-                    <Button onClick={handleLogin} colorScheme="teal">Logar</Button>
+                    <Button onClick={handleLogin} disabled={loading ? true : false} colorScheme="teal">{loading ? "Carregando" : "Logar"}</Button>
                 </Center>
             </form>
             {/* <div>

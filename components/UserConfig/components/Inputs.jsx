@@ -7,7 +7,8 @@ import {
     Image, Center, Button, Input, useToast, Skeleton, Box, Grid,
     GridItem, VisuallyHidden, Text, InputGroup, InputRightElement, InputRightAddon, BoxModal,
     ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Modal,
-    useDisclosure, useColorMode
+    useDisclosure, useColorMode, Popover, PopoverTrigger, PopoverContent, PopoverHeader,
+     PopoverBody, PopoverArrow, PopoverCloseButton, Portal
 } from "@chakra-ui/react";
 import styles from "../UserConfig.module.scss";
 
@@ -19,6 +20,7 @@ function Inputs() {
     const [show, setShow] = useState(false)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { colorMode, toggleColorMode } = useColorMode()
+    const initialFocusRef = React.useRef()
     const handleShow = () => setShow(!show)
 
     const formik = useFormik({
@@ -55,6 +57,9 @@ function Inputs() {
     const handleLogout = async () => {
         API.logOut();
     }
+    const handleDelete = async () => {
+        API.deletarConta();
+    }
 
     const handleUpdate = (evt) => {
         evt.preventDefault();
@@ -69,7 +74,7 @@ function Inputs() {
         <>
             <Center marginTop="5vh" marginBottom="5vh">
                 <p>
-                    <h2>Nome de usuario: </h2>
+                    <Text fontFamily='Karla' fontWeight="bold !important" >Nome de usuario:</Text>
                     <Input
                         w="100%"
                         type="text"
@@ -84,7 +89,7 @@ function Inputs() {
             </Center>
             <Center marginTop="5vh" marginBottom="5vh">
                 <p>
-                    <h2>Email: </h2>
+                    <Text fontFamily='Karla' fontWeight="bold !important" >Email:</Text>
                     <Input
                         w="100%"
                         type="text"
@@ -97,7 +102,7 @@ function Inputs() {
             </Center>
             <Center marginTop="5vh" marginBottom="1vh">
                 <p>
-                    <h2>Senha: </h2>
+                    <Text fontFamily='Karla' fontWeight="bold !important">Senha: </Text>
                     <InputGroup>
                         <Input
                             w="100%"
@@ -115,16 +120,17 @@ function Inputs() {
                         </InputRightElement>
                     </InputGroup>
                 </p>
+
             </Center>
             <Center marginTop="0" marginBottom="3vh">
                 <Button colorScheme="blue" variant="solid" w="250px" onClick={onOpen}>
                     Alterar senha
                 </Button>
             </Center>
-            <Center marginTop="2vh" marginBottom="2vh"> 
-                    <Button onClick={toggleColorMode} bg={colorMode === "light" ? "#000000" : "whiteAlpha"} w="200px"  _hover={colorMode === "light" ? { bg: "#212529" } : { bg: "#495057" }}>
-                        <Text color="white">Modo {colorMode === "light" ? "Noturno" : "Claro"}</Text>
-                    </Button>
+            <Center marginTop="2vh" marginBottom="2vh">
+                <Button onClick={toggleColorMode} bg={colorMode === "light" ? "#000000" : "whiteAlpha"} w="200px" _hover={colorMode === "light" ? { bg: "#212529" } : { bg: "#495057" }}>
+                    <Text color="white">Modo {colorMode === "light" ? "Noturno" : "Claro"}</Text>
+                </Button>
             </Center>
             <Center marginTop="2vh" marginBottom="2vh">
                 <Button colorScheme="teal" variant="solid" w="200px" onClick={handleUpdate}>
@@ -136,11 +142,29 @@ function Inputs() {
                     Deslogar
                 </Button>
             </Center>
-            {/* <Center marginTop="2vh" marginBottom="5vh">
-                <Button colorScheme="red" variant="solid" onClick={handleLogout} w="200px">
-                    Excluir conta
-                </Button>
-            </Center> */}
+            <Center marginTop="2vh" marginBottom="5vh">
+                <Popover initialFocusRef={initialFocusRef}
+                    placement="top"
+                    closeOnBlur={true}
+                >
+                    <PopoverTrigger>
+                        <Button colorScheme="red" variant="solid" w="200px">
+                            Excluir conta
+                        </Button>
+                    </PopoverTrigger>
+                    <Portal>
+                        <PopoverContent boxShadow="none !important">
+                            <PopoverArrow />
+                            <Center marginTop="5px"><h2>Você tem certeza?</h2></Center>
+                            <PopoverCloseButton />
+                            <PopoverBody>
+                                <div><Button colorScheme="red" w="100%" onClick={handleDelete} marginBottom="10px">Sim</Button><br /></div>
+                            </PopoverBody>
+                        </PopoverContent>
+                    </Portal>
+                </Popover>
+            </Center>
+
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />

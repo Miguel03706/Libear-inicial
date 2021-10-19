@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { GetServerSideProps } from 'next';
 import {
     Tabs, TabList, TabPanels, Tab, TabPanel, Box, Progress, Button,
-    Center, Image, Text, SimpleGrid, Skeleton
+    Center, Image, Text, SimpleGrid, useToast
 } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
 import Link from "next/link";
@@ -31,6 +30,8 @@ export async function getServerSideProps(ctx) {
 function licao({ slug }) {
     const router = useRouter();
     const [tabIndex, setTabIndex] = React.useState(0)
+    const toast = useToast();
+
     const handleTabsChange = (index) => {
         setTabIndex(index)
     }
@@ -40,7 +41,14 @@ function licao({ slug }) {
 
     const handleFinaliza = useCallback(evt => {
         evt.preventDefault();
-        DB.completaAtividade(slug). then(router.push('/inicio'));
+        toast({
+            title: "Atividade completa",
+            description: "Dinheiro: +100 / XP: +20",
+            status: "success",
+            duration: 2500,
+            isClosable: false,
+          })
+        DB.completaAtividade(slug).then(router.push('/inicio'));
     }, [])
 
     return (
@@ -98,15 +106,14 @@ function licao({ slug }) {
                     </TabPanel>
                     <TabPanel>
                         <>
-                            <SimpleGrid columns={2} spacing={10} m="10">
-                                <Box height="auto" width="100%">aaaa</Box>
-                                <Box height="auto" width="80%">
+                            <SimpleGrid columns={1} spacing={10} m="10">
+                                <Box height="50%" width="100%"><Center><Image src={`../skins/polar.webp`} h="60vh"/></Center></Box>
+                                <Box height="auto" width="100%">
                                     <Link href="../inicio" as={`../inicio`}>
                                         <div className={styles.button}>
-                                            <Button colorScheme="blue" w="100%" onClick={handleFinaliza}>Próximo</Button><br />
-                                            </div>
+                                            <Center><Button colorScheme="blue" w="30%" onClick={handleFinaliza}>Finalizar tarefa</Button></Center>
+                                        </div>
                                     </Link>
-                                    <Skeleton height="400px" />
                                 </Box>
                             </SimpleGrid>
                         </>

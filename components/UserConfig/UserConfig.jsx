@@ -31,13 +31,13 @@ function UserConfig() {
             <div className={styles.container}>
                 <Grid templateColumns="repeat(2, 1fr)" gap={6}>
                     <Box w="100%" h="10vh">
-                        <Text p="5"><h2>Seu Perfil:</h2></Text>
+                        <Text p="5" fontFamily='Karla' fontWeight="bold !important">Seu Perfil:</Text>
                     </Box>
                     <Box w="100%" h="10vh" />
                 </Grid>
                 <Center><Image src={`user/user_img/${usuario.photoURL}.webp`} h="100px" /></Center>
                 <Center>
-                    <h2><Text onClick={onOpen} cursor="pointer" _hover={{ color: "#48d1cc" }}>ALTERAR IMAGEM</Text></h2>
+                    <Text onClick={onOpen} cursor="pointer" _hover={{ color: "#48d1cc" }} fontFamily='Karla' fontWeight="bold !important">ALTERAR IMAGEM</Text>
                 </Center>
                 <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
                     <ModalOverlay />

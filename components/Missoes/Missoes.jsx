@@ -40,11 +40,11 @@ function Missoes() {
                                             <Center w="30%"  borderBottom="1px solid black">
                                                 <Image src={`../images/missoes/${task.img}.webp`} alt={`${task.texto}`} h="100px" w="auto" />
                                             </Center>
-                                            <Square bg="blue.500" w="20%" p="5px" borderBottom="1px solid black">
+                                            <Square  w="20%" p="5px" borderBottom="1px solid black">
                                                 <Button colorScheme="teal" onClick={(e) => setCompletos(task.id_missao)}>Completar</Button>
                                             </Square>
-                                            <Center w="50%" bg="green.500" borderBottom="1px solid black">
-                                                <Text>{task.texto}</Text>
+                                            <Center w="50%"  borderBottom="1px solid black">
+                                                <Text color="#000 !important">{task.texto}</Text>
                                             </Center>
                                         </>
                                         :

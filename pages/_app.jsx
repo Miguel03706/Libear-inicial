@@ -5,7 +5,6 @@ import AuthProvider from "../components/state/Auth/Provider"
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
-  console.log(process.env.REACT_APP_FIREBASE_KEY);
   return (
     <AuthProvider>
       

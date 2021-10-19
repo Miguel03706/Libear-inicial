@@ -5,7 +5,6 @@ import firebaseConfig from "./firebaseConfig";
 import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from "firebase/auth";
 import axios from "axios";
 
-
 if (!firebase.apps.length) {
   const firebaseApp = firebase.initializeApp(firebaseConfig);
   var db = firebaseApp.firestore();
@@ -21,9 +20,6 @@ const handleError = (error) => {
       case 'auth/weak-password':
         alert('Senha muito fraca: Sua senha deve conter no minimo 6 caracteres');
         break;
-      case 'auth/requires-recent-login':
-        alert('Para alterar o email é necessário relogar');
-        break;
       case 'auth/wrong-password':
         alert('Senha incorreta');
         break
@@ -33,7 +29,12 @@ const handleError = (error) => {
       case "auth/invalid-email":
         alert('Insira um email válido!');
         break
-
+      case "auth/requires-recent-login":
+        alert('Para realizar essa ação é necessário relogar');
+        break
+        case "auth/user-not-found":
+          alert('Usuário não encontrado, tente usar outro email')
+          break
     }
   }
 }
@@ -94,7 +95,7 @@ export default {
       return img;
     })
       .catch((error) => {
-        console.log("Error getting documents: ", error);
+        alert(error);
       });
   },
   userUpdate: (email, userName) => {
@@ -106,7 +107,7 @@ export default {
         alert('Nome de usuário alterado com sucesso')
         axios.get(`http://localhost/api/userUpdate.php?id=${user.uid}&user=${userName}`)
       }).catch((error) => {
-        console.log(error);
+        alert(error);
       });
       user.updateEmail(email).then(() => {
         alert('Email alterado com sucesso')
@@ -140,14 +141,17 @@ export default {
       alert('Imagem alterada com sucesso')
     })
   },
-  deletarConta: async (userId) => {
+  deletarConta: async () => {
     const user = firebase.auth().currentUser;
+    const userKey = Object.keys(window.sessionStorage)
+      .filter(it => it.startsWith('firebase:authUser'))[0];
+    const usuario = userKey ? JSON.parse(sessionStorage.getItem(userKey)) : undefined;
 
     user.delete().then(() => {
-      axios.get(`http://localhost/api/DeletarConta.php?id=${userId}`);
+      axios.get(`http://localhost/api/DeletarConta.php?id=${usuario.uid}`);
       location.href = "http://localhost:3000/entrar"
     }).catch((error) => {
-      alert(error);
+      handleError(error);
     });
 
   },
