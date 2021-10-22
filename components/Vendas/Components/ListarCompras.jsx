@@ -52,10 +52,10 @@ export default function ListarCompras({ money }) {
                             <Center><Image src={`../images/loja/${itens.img}.webp`} h="100px" w="auto" /></Center>
                             <Center textAlign="center"><Text>{itens.descricao}</Text></Center>
                         </Box>
-                        <Square bg="blue.500" w="auto" border="1px solid black" p="5px">
+                        <Square w="auto" border="1px solid black" p="5px">
                             {
                                 itens.compras[`${itens.id_produto}`].buy == 0 ?
-                                    <Button colorScheme="teal"
+                                    <Button colorScheme="blue"
                                         onClick={(e) => {
                                             setPreco(itens.preco)
                                             setComprar(itens.id_produto)
@@ -63,7 +63,7 @@ export default function ListarCompras({ money }) {
                                         }>Comprar por: {itens.preco}</Button>
                                     :
                                     <>
-                                        <Button colorScheme="teal" isDisabled>Já possui</Button>
+                                        <Button colorScheme="blue" isDisabled>Já possui</Button>
                                     </>
                             }
                         </Square>

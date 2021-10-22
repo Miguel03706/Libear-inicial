@@ -80,7 +80,7 @@ function Licao6({ slug, handleNext }) {
                     <div key={atividade.id_atividade}>
                         <div className={styles.Img}>
                             <Center>
-                                <Image src={`../../images/atividades/${atividade.licao.atividade6.imagem}`} h="300px" w="60%" />
+                                <Image src={`../../images/atividades/${atividade.licao.atividade6.imagem}`}  h="300px" w="auto" p="10px" />
                             </Center>
                         </div>
                         <div className={styles.Txt}>

@@ -39,6 +39,7 @@ function UserConfig() {
                 <Center>
                     <Text onClick={onOpen} cursor="pointer" _hover={{ color: "#48d1cc" }} fontFamily='Karla' fontWeight="bold !important">ALTERAR IMAGEM</Text>
                 </Center>
+                
                 <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
                     <ModalOverlay />
                     <ModalContent>

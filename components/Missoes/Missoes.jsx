@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext, useCallback } from "react"
 import DB from "../../pages/api/MySQL";
 import AuthContext from "../state/Auth/Context"
-import { Text, Flex, Center, Square, Box, Button, Image } from "@chakra-ui/react";
+import { Text, Flex, Center, Square, Box, Button, Image,useColorMode } from "@chakra-ui/react";
 import styles from "./missoes.module.scss"
 
 function Missoes() {
     const usuario = useContext(AuthContext)
     const [missoes, setMissoes] = useState([])
     const [completos, setCompletos] = useState([])
+    const { colorMode, toggleColorMode } = useColorMode()
 
     useEffect(() => {
         DB.exibirMissoes().then(setMissoes)
@@ -41,10 +42,10 @@ function Missoes() {
                                                 <Image src={`../images/missoes/${task.img}.webp`} alt={`${task.texto}`} h="100px" w="auto" />
                                             </Center>
                                             <Square  w="20%" p="5px" borderBottom="1px solid black">
-                                                <Button colorScheme="teal" onClick={(e) => setCompletos(task.id_missao)}>Completar</Button>
+                                                <Button colorScheme={colorMode === "light" ? "teal" : "blue"} onClick={(e) => setCompletos(task.id_missao)} color={colorMode === "light" ? "#fff !important" : "#000 !important"}>Completar</Button>
                                             </Square>
                                             <Center w="50%"  borderBottom="1px solid black">
-                                                <Text color="#000 !important">{task.texto}</Text>
+                                                <Text  color={colorMode === "light" ? "#000000 !important" : "#fff !important"}>{task.texto}</Text>
                                             </Center>
                                         </>
                                         :

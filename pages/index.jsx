@@ -8,19 +8,18 @@ export default function Home() {
 
   return (
     <>
-      <div className="mobile-hide">
         <div className={styles.header}>
           <Image src="images/polar.webp" alt="foto de um urso na antartida" />
           <div>
             <span>
-              <Text fontSize={{ base: "12px", md: "18px", lg: "25px" }} color='black' letterSpacing="2px">Aprenda libras da melhor maneira!</Text>
+              <Text fontSize={{ base: "12px", md: "18px", lg: "25px" }} color='white' >Aprenda libras da melhor maneira!</Text>
             </span>
 
             <Link href="/cadastrar">
-              <Button colorScheme="blue" className={styles.btn_start}>Começar</Button>
+              <Button colorScheme="blue" className={styles.btn_start} color='white'>Começar</Button>
             </Link>
             <Link href="/entrar">
-              <Button colorScheme="blue" variant="solid" className={styles.btn_login}>
+              <Button colorScheme="blue" className={styles.btn_login}>
                 Já tenho uma conta
               </Button>
             </Link>
@@ -57,12 +56,6 @@ export default function Home() {
           </SimpleGrid>
         </div>
 
-      </div>
-
-      <div className="mobile">
-        <div className="desktop-hide">
-        </div>
-      </div>
     </>
   )
 }
