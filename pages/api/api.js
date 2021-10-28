@@ -55,6 +55,8 @@ export default {
         photoURL: "polar"
       })
     }).then(() => {
+      localStorage.setItem("redirect", true)
+      JSON.stringify(localStorage.getItem("isCreate"));
       location.href = "http://localhost:3000/entrar"
     }).catch((error) => {
       handleError(error);

@@ -1,26 +1,24 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from "next/link"
 import { Image, Button } from "@chakra-ui/react";
-import AuthContext from "../state/Auth/Context";
 import styles from "./header.module.scss";
 
-//const [complete, setComplete] = useState("0");
-//const [chama, setChama] = useState("images/chama-cinza.webp");
-export interface HeaderProps{
-    color: boolean
-}
+export default function Header({ inicio, missoes, loja, config }) {
+    const [user, setUser] = useState([]);
+    useEffect(() => {
+        const userKey = Object.keys(window.sessionStorage)
+            .filter(it => it.startsWith('firebase:authUser'))[0];
+        const user = userKey ? JSON.parse(sessionStorage.getItem(userKey)) : undefined;
+        setUser(user);
+    }, []);
 
-//<Image size="64px" src="images/foto-perfil.webp" alt="foto de perfil" />
-export default function Header({inicio, missoes, loja, config}) {
-    const usuario = useContext(AuthContext);
-
-     const routes = [
+    const routes = [
         { path: "/inicio", label: "Inicio", img: "../icons/inicio.webp", color: inicio },
         { path: "/missoes", label: "Missões", img: "../icons/pergaminho.webp", color: missoes },
         { path: "/loja", label: "Loja", img: "../icons/loja.webp", color: loja },
         { path: "/configurar", label: "Configurações", img: "../icons/engrenagens.webp", color: config },
         { path: "", label: '0', img: "../icons/chama-cinza.webp" },
-        { path: "/perfil", label: "", img: `../user/user_img/${usuario.photoURL}.webp` }
+        { path: "/perfil", label: "", img: `../user/user_img/${user.photoURL}.webp` }
     ]
 
     return (
@@ -34,12 +32,12 @@ export default function Header({inicio, missoes, loja, config}) {
                                     <li key={idx}>
                                         <Link href={path}>
                                             <Button colorScheme="teal" variant="link">
-                                                {color ? 
-                                                <Image size="64px" src={img} className={styles.imgSelect}/> : <Image size="64px" src={img} />}
+                                                {color ?
+                                                    <Image size="64px" src={img} className={styles.imgSelect} /> : <Image size="64px" src={img} />}
                                                 {color ? <a className={styles.imgSelect}><div className="label_header">{label}</div></a> : <a><div className="label_header">{label}</div></a>}
                                             </Button>
                                         </Link>
-                                        
+
                                     </li>
                                 ))}
                             </ul>
@@ -53,9 +51,9 @@ export default function Header({inicio, missoes, loja, config}) {
                     <header className={styles.headerMobile}>
                         <div className={styles.wrapperMobile}>
                             <nav>
-                             <h2>Libear</h2>
+                                <h2>Libear</h2>
                             </nav>
-                            <Image size="64px" src="icons/logo_urso.webp"/>
+                            <Image size="64px" src="icons/logo_urso.webp" />
                         </div>
                     </header>
                 </div>

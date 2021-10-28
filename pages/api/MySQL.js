@@ -23,8 +23,11 @@ export default {
         const res = await axios.get(`http://localhost/api/ListarMissao.php?id=${id}`);
         return res.data.result;
     },
-    completaMissao: async (id, complete) => {
-        await axios.get(`http://localhost/api/CompletarMissao.php?id=${id}&complete=${complete}`);
+    completaMissao: async (complete) => {
+        const userKey = Object.keys(window.sessionStorage)
+        .filter(it => it.startsWith('firebase:authUser'))[0];
+    const user = userKey ? JSON.parse(sessionStorage.getItem(userKey)) : undefined;
+        await axios.get(`http://localhost/api/CompletarMissao.php?id=${user.uid}&complete=${complete}`);
     },
     completaAtividade: async (complete) => {
         const userKey = Object.keys(window.sessionStorage)

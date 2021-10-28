@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useCallback, useState } from "react";
 import Link from "next/link"
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import AuthContext from "../state/Auth/Context";
 import { useRouter } from 'next/router';
 import styles from "./login.module.scss";
 import API from "../../pages/api/Api";
@@ -14,7 +13,6 @@ function Login() {
     const toast = useToast()
     const [result, setResult] = useState([]);
     const [loading, setLoading] = useState(false);
-    const usuario = useContext(AuthContext);
     const router = useRouter();
 
     const formik = useFormik({
@@ -38,31 +36,7 @@ function Login() {
         let redirect = JSON.parse(localStorage.getItem("redirect"));
         redirect ? toast({ description: "Cadastrado com sucesso" }) : null
         window.localStorage.removeItem("isCreate");
-        //document.addEventListener('keydown', handleKeydown)
     }, [])
-
-    // async function handleKeydown(evt) {
-    //     const keyPressed = evt.key;
-    //     if (keyPressed == 'Enter') {
-    //         console.log(formik.values)
-    //         let { email, password } = await formik.values
-    //         await API.logarContaFB(email, password);
-    //     };
-    //     }
-
-    useEffect(() => {
-        //serve para pegar valor de promisse
-        // var original = Promise.resolve(usuario);
-        // original.then(function(v) {
-        //     v !== null ? router.push('/inicio') : null
-        //   });
-        const userKey = Object.keys(window.sessionStorage)
-            .filter(it => it.startsWith('firebase:authUser'))[0];
-        const user = userKey ? JSON.parse(sessionStorage.getItem(userKey)) : undefined;
-        if (user !== undefined) {
-            router.push('/inicio');
-        }
-    }, [usuario])
 
     const handleLogin = async (evt) => {
         evt.preventDefault();

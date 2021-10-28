@@ -11,7 +11,13 @@ import {
 import styles from "./UserConfig.module.scss";
 
 function UserConfig() {
-    const usuario = useContext(AuthContext)
+    const [user, setUser] = useState([]);
+    useEffect(() => {
+        const userKey = Object.keys(window.sessionStorage)
+            .filter(it => it.startsWith('firebase:authUser'))[0];
+        const user = userKey ? JSON.parse(sessionStorage.getItem(userKey)) : undefined;
+        setUser(user);
+    }, []);
     const [img, setImg] = useState([]);
     const [value, setValue] = React.useState("")
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -35,7 +41,7 @@ function UserConfig() {
                     </Box>
                     <Box w="100%" h="10vh" />
                 </Grid>
-                <Center><Image src={`user/user_img/${usuario.photoURL}.webp`} h="100px" /></Center>
+                <Center><Image src={`user/user_img/${user.photoURL}.webp`} h="100px" /></Center>
                 <Center>
                     <Text onClick={onOpen} cursor="pointer" _hover={{ color: "#48d1cc" }} fontFamily='Karla' fontWeight="bold !important">ALTERAR IMAGEM</Text>
                 </Center>

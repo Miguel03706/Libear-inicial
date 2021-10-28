@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthContext from "./Context";
-import API from '../../../pages/api/Api'
+import API from '../../../pages/api/Api';
 import firebase from "firebase/app";
 import "firebase/firebase-auth";
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import AuthContext from "../../state/Auth/Context"
 import API from "../../../pages/api/Api";
 import {
     Image, Center, Button, Input, useToast, Skeleton, Box, Grid,
@@ -13,16 +12,29 @@ import {
 import styles from "../UserConfig.module.scss";
 
 function Inputs() {
-    const usuario = useContext(AuthContext);
-    const [userName, setUserName] = useState(usuario.displayName);
-    const [userEmail, setEmail] = useState(usuario.email);
+
+    const [user, setUser] = useState([]);
+    const [userName, setUserName] = useState("");
+    const [userEmail, setEmail] = useState("");
     const [userPassword, setPassword] = useState("");
     const [show, setShow] = useState(false)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { colorMode, toggleColorMode } = useColorMode()
     const initialFocusRef = React.useRef()
     const handleShow = () => setShow(!show)
+   
 
+    useEffect(() => {
+        const userKey = Object.keys(window.sessionStorage)
+            .filter(it => it.startsWith('firebase:authUser'))[0];
+        const user = userKey ? JSON.parse(sessionStorage.getItem(userKey)) : undefined;
+        setUser(user);
+    }, []);
+    useEffect(() => {
+        setUserName(user.displayName);
+        setEmail(user.email)
+    }, [user]);
+    
     const formik = useFormik({
         initialValues: {
             userName: '',

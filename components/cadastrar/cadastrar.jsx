@@ -6,14 +6,12 @@ import { useRouter } from 'next/router';
 import {
     Image, Center, Button, Input,
 } from "@chakra-ui/react";
-import AuthContext from "../state/Auth/Context"
 import API from '../../pages/api/Api'
 import styles from "./cadastrar.module.scss";
 
 
 function Cadastrar() {
     const [result, setResult] = useState([]);
-    const user = useContext(AuthContext)
     const router = useRouter();
 
     const formik = useFormik({
@@ -35,11 +33,7 @@ function Cadastrar() {
     useEffect(() => {
         window.localStorage.removeItem("redirect");
     })
-   useEffect(() => {
-    localStorage.setItem("redirect", true)
-    let redirect = JSON.stringify(localStorage.getItem("isCreate"));
-    // redirect != 'null' ? window.location.href = "/entrar" : null
-   },[user])
+
     async function cadastrarDados() {
         let {email, password} = formik.values
         API.criarContaFB(email, password);
