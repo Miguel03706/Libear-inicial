@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 import "firebase/firebase-auth";
 import "firebase/firebase-firestore";
 import firebaseConfig from "./firebaseConfig";
-import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from "firebase/auth";
 import axios from "axios";
 
 if (!firebase.apps.length) {
