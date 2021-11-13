@@ -60,19 +60,6 @@ function licao({ slug }) {
                 <Progress colorScheme="green" height="32px" value={tabIndex * 11} max={100} borderRadius="10px" />
             </Box>
             <Tabs index={tabIndex} onChange={handleTabsChange}>
-                <TabList>
-                    <Tab>One</Tab>
-                    <Tab>Two</Tab>
-                    <Tab>Three</Tab>
-                    <Tab>Four</Tab>
-                    <Tab>Five</Tab>
-                    <Tab>Six</Tab>
-                    <Tab>Seven</Tab>
-                    <Tab>Eight</Tab>
-                    <Tab>Nine</Tab>
-                    <Tab>Ten</Tab>
-                    <Tab>Eleven</Tab>
-                </TabList>
                 <TabPanels>
                     <TabPanel>
                         <Licao1 slug={slug} handleNext={handleNext} index={tabIndex} />

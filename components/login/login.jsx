@@ -26,7 +26,7 @@ function Login() {
                 .email("preencha com um email válido"),
             password: yup.string()
                 .required('Você precisa digitar sua senha.')
-                .min(8, "a senha deve ter no minimo 8 caracteres")
+                .min(6, "a senha deve ter no minimo 8 caracteres")
         }),
         validateOnChange: false, //valida a acada caractere adicionado
         validateOnBlur: false, // valida ao sair do form(ou clicar fora do input)

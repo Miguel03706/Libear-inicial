@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import Link from "next/link"
 import { Image, Button, Heading, Text, Center, GridItem, SimpleGrid } from "@chakra-ui/react";
-import AuthContext from "../components/state/Auth/Context";
 import styles from "../styles/Home.module.scss"
 
 export default function Home() {

@@ -55,7 +55,8 @@ export default {
         photoURL: "polar"
       })
     }).then(() => {
-      localStorage.setItem("redirect", true)
+      firebase.auth().signOut();
+      localStorage.setItem("redirect", true);
       JSON.stringify(localStorage.getItem("isCreate"));
       location.href = "http://localhost:3000/entrar"
     }).catch((error) => {
@@ -116,10 +117,11 @@ export default {
         handleError(error);
       })
     } else {
-      alert('Insira um valor válido')
+      alert('Insira um valor válido!')
     }
   },
   userUpdatePassword: (password) => {
+    const user = firebase.auth().currentUser;
     const credential = firebase.auth.EmailAuthProvider.credential(
       user.email,
       password
@@ -127,7 +129,7 @@ export default {
 
     user.updatePassword(password).then(() => {
       user.reauthenticateWithCredential(credential).then(() => {
-        console.log("senha alterada com sucesso");
+        alert("senha alterada com sucesso");
       })
     }
     ).catch((error) => {
@@ -139,7 +141,7 @@ export default {
     user.updateProfile({
       photoURL: img
     }).then(() => {
-      alert('Imagem alterada com sucesso')
+      alert('Imagem alterada com sucesso, atualize a página para ver as mudanças!')
     })
   },
   deletarConta: async () => {

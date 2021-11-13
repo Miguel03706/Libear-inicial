@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Header from "../components/header"
 import Atividades from "../components/atividades"
 import AuthContext from "../components/state/Auth/Context";

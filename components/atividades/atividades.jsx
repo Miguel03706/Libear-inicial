@@ -55,11 +55,6 @@ const Atividades = () => {
                                                 <PopoverArrow />
                                                 <div className={styles.licao} key={atividade.id_atividade}>
                                                     <div className={styles.titulo}><Center><h2>{atividade.titulo}</h2></Center></div>
-                                                    {atividade.progresso == 0 ? "lição 0/4" : ""}
-                                                    {atividade.progresso == 25 ? "lição 1/4" : ""}
-                                                    {atividade.progresso == 50 ? "lição 2/4" : ""}
-                                                    {atividade.progresso == 75 ? "lição 3/4" : ""}
-                                                    {atividade.progresso >= 100 ? "lição 4/4" : ""}
                                                 </div>
                                                 <PopoverCloseButton />
                                                 <PopoverBody className={styles.popBody}>
@@ -75,6 +70,7 @@ const Atividades = () => {
                                     </Popover>
                                 </CircularProgressLabel>
                             </CircularProgress>
+                        <Center><div className={styles.subTitulo}><h2>{atividade.titulo}</h2></div></Center>
                         </Center>
                     </div>
                 ))}

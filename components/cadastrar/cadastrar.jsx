@@ -13,6 +13,7 @@ import styles from "./cadastrar.module.scss";
 function Cadastrar() {
     const [result, setResult] = useState([]);
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -25,7 +26,7 @@ function Cadastrar() {
                 .email("preencha com um email válido"),
             password: yup.string()
                 .required('Você precisa digitar sua senha.')
-                .min(8, "a senha deve ter no minimo 6 caracteres")
+                .min(6, "a senha deve ter no minimo 6 caracteres")
         }),
         validadeOnChange: false, //valida a acada caractere adicionado
         validateOnBlur: false, // valida ao sair do form(ou clicar fora do input)
@@ -35,11 +36,13 @@ function Cadastrar() {
     })
 
     async function cadastrarDados() {
+        setLoading(true);
         let {email, password} = formik.values
-        API.criarContaFB(email, password);
+        await API.criarContaFB(email, password);
+        setLoading(false);
     }
    
-    const LoginButton = <Button onClick={cadastrarDados} colorScheme="teal">Cadastrar</Button>
+    const LoginButton = <Button onClick={cadastrarDados} disabled={loading ? true : false} colorScheme="teal">Cadastrar</Button>
     return (
         <div className={styles.container}>
             <Center><Image src={`icons/logo_urso.webp`} h="200px" /></Center>
