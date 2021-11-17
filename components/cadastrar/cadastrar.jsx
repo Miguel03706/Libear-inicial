@@ -66,7 +66,7 @@ function Cadastrar() {
                     autoComplete="off" /></p></Center>
                 <Center> {LoginButton}</Center>
             </form>
-                <div className={styles.Link}>
+                <div className={styles.Link} >
                     Já possui uma conta? <Link href="/entrar"><a>Entrar</a></Link>
                 </div>
         </div>

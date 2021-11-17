@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { Grid, Center } from "@chakra-ui/react"
 import ListarCompras from "./Components/ListarCompras";
 import styles from "./vendas.module.scss";
+import { FaStaylinked } from 'react-icons/fa';
 
 export default function Vendas() {
     const [money, setMoney] = useState(0)
@@ -12,7 +13,7 @@ export default function Vendas() {
 
     return (
         <>
-    <Center>Seu dinheiro: {money}</Center>
+            <Center>Seu dinheiro: {money}</Center>
 
             <Grid
                 p="5%"
@@ -21,9 +22,9 @@ export default function Vendas() {
                 templateColumns="repeat(4, 1fr)"
                 gap={4}
             >
-                <ListarCompras money={handleMoney}/>
+                <ListarCompras money={handleMoney} />
             </Grid>
-
+            <div class={styles.space}></div>
         </>
     )
 }

@@ -104,6 +104,9 @@ function Login() {
             <div className={styles.Link}>
                 Não possui uma conta? <Link href="/cadastrar"><a>Cadastrar</a></Link>
             </div>
+            <Center className={styles.Link} marginTop="20px">
+                    Esqueceu a senha? <Link href="/"><a> Recuperar</a></Link>
+                </Center>
         </div>
     )
 }

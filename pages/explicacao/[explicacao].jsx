@@ -22,14 +22,10 @@ function Explicacao({ slug }) {
         <>
             <Header inicio={false} missoes={false} loja={false} config={false} />
 
-            <SimpleGrid columns={2} spacing={5} m="10">
                 <Box height="auto" width="100%">
                     <Orientacao slug={slug} />
                 </Box>
-                <Box height="auto" width="90%">
-                    <Skeleton height="400px" />
-                </Box>
-            </SimpleGrid>
+               
             {/* <Grid
                 h="200px"
                 m="10px"

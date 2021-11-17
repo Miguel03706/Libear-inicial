@@ -14,10 +14,10 @@ export default function Header({ inicio, missoes, loja, config }) {
 
     const routes = [
         { path: "/inicio", label: "Inicio", img: "../icons/inicio.webp", color: inicio },
-        { path: "/missoes", label: "Missões", img: "../icons/pergaminho.webp", color: missoes },
+        { path: "/missoes", label: "Missões", img: "../icons/missoes.webp", color: missoes },
         { path: "/loja", label: "Loja", img: "../icons/loja.webp", color: loja },
-        { path: "/configurar", label: "Configurações", img: "../icons/engrenagens.webp", color: config },
-        { path: "", label: '0', img: "../icons/chama-cinza.webp" },
+        { path: "/configurar", label: "Configurações", img: "../icons/config.webp", color: config },
+        { path: "/inicio", label: '0', img: "../icons/chama-cinza.webp" },
         { path: "/perfil", label: "", img: `../user/user_img/${user.photoURL}.webp` }
     ]
 

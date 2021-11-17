@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Flex, Spacer, Center, Text, SimpleGrid, Box, Skeleton } from "@chakra-ui/react"
+import { Button, Center, Text, AspectRatio } from "@chakra-ui/react"
 import DB from "../../pages/api/MySQL";
 import styles from "./orientacao.module.scss";
 
@@ -8,18 +8,25 @@ function Orientacao({ slug }) {
 
     useEffect(() => {
         DB.exibirExplicacao(slug).then(setExplicacao);
-    }, [])    
+    }, [])
 
-    return(
+    return (
         <>
             {explicacao.map(orientacao => {
-                return(
+                return (
                     <div key={orientacao.id}>
+                        <Center as="h2" fontSize="26px" marginTop="50px" color="#00c3d3"><Text>{orientacao.titulo}</Text></Center>
+                      <Center className={styles.video} marginTop="50px">
+                                <iframe
+                                    title={orientacao.titulo}
+                                    src={orientacao.url}
+                                    allowFullScreen
+                                    height="300px"
+                                    width="50%"
+                                />
+                        </Center>
                         <div className={styles.titulo}>
-                        <Center><Text>{orientacao.titulo}</Text></Center>    
-                        </div>
-                        <div className={styles.titulo}>
-                        {orientacao.orientacao}    
+                            <Center marginTop="50px"><Text>{orientacao.orientacao}</Text></Center>
                         </div>
                     </div>
                 )
